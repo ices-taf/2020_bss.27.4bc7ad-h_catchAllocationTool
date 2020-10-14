@@ -10,10 +10,8 @@ mkdir("data")
 # year
 yr_idx <- c(2017, 2018)
 
-
-# Define assessment folder and extract outputs
-assessmt <-
-  SS_output(taf.data.path("assessment"), covar = FALSE, printstats = FALSE)
+# load assessment results
+load("data/assessmemt.RData")
 
 # Extract population ages
 pop_age <- as.integer(grep("[0-9]+", names(assessmt$natage), value = TRUE))

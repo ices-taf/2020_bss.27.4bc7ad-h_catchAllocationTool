@@ -7,11 +7,13 @@ library(icesTAF)
 
 mkdir("data")
 
-source("data_0_ALK.R")
-source("data_0_lenfreq.R")
+sourceTAF("data_0_assessment.R")
 
-source("data_1_landings-selectivities.R")
-source("data_2_selectivity-curves.R")
+sourceTAF("data_1_ALK.R")
+sourceTAF("data_2_lenfreq.R")
+
+sourceTAF("data_3_landings-selectivities.R")
+sourceTAF("data_4_selectivity-curves.R")
 
 # not got this yet
-# source("data_3_shiny.R")
+# source("data_5_shiny.R")

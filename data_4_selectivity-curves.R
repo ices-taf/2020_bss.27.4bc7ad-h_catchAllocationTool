@@ -154,10 +154,8 @@ selex_final <-
   selex_final[!(selex_final$gear == "PelTrawl"), ]
 
 
-#assessment
-assessmt <-
-  SS_output(taf.data.path("assessment"), covar = FALSE, printstats = FALSE)
-# SS_plots(assessmt, plot = 2, uncertainty = FALSE)
+# load assessment results
+load("data/assessmemt.RData")
 
 # Use selex provided in output for last year of assessment data for recre et pel
 selex_recre <- assessmt$ageselex[assessmt$ageselex$Fleet == 6 & assessmt$ageselex$Yr == 2019, ]

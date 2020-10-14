@@ -9,12 +9,8 @@ library(dplyr)
 # Select year of interest
 yr_idx <- c(2017, 2018)
 
-# Define assessment folder and extract outputs
-assessmt <-
-  SS_output(
-    taf.data.path("assessment"),
-    covar = FALSE, readwt = FALSE, printstats = FALSE
-  )
+# load assessment results
+load("data/assessmemt.RData")
 
 # Read RDB files on length samples
 len <- read_csv(taf.data.path("RDB", "RDB seabass length data_.csv"), col_types = cols())

@@ -6,6 +6,8 @@ library(readr)
 library(ggplot2)
 library(dplyr)
 
+# load assessment results
+load("data/assessmemt.RData")
 
 # combine len freqs with ALK and aggregate
 alk <- read_csv("data/ALK.csv", col_types = cols())
