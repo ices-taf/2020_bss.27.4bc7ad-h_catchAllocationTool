@@ -26,7 +26,8 @@ unlink("datacall_files.zip")
 land <-
   read_csv(
     taf.data.path("RDB", "RDB seabass Landings data_.csv"),
-    na = c("", "NA", "NULL")
+    na = c("", "NA", "NULL"),
+    col_types = cols()
   )
 
 # Change landings table variables to match lengths variables

@@ -17,7 +17,7 @@ assessmt <-
   )
 
 # Read RDB files on length samples
-len <- read_csv(taf.data.path("RDB", "RDB seabass length data_.csv"))
+len <- read_csv(taf.data.path("RDB", "RDB seabass length data_.csv"), col_types = cols())
 
 # Extract population lengths
 pop_len_mm <-
@@ -58,7 +58,7 @@ len <-
   )
 
 # Read RDB files on landings samples
-land <- read_csv(taf.data.path("RDB", "RDB seabass Landings data_.csv"))
+land <- read_csv(taf.data.path("RDB", "RDB seabass Landings data_.csv"), col_types = cols())
 
 # keep only relevant flag countries (for which length data exist)
 # and years
