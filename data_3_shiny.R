@@ -5,7 +5,7 @@ library(r4ss)
 library(dplyr)
 library(tidyr)
 
-mkdir("shiny/data")
+mkdir("data")
 
 # Define assessment folder and extract outputs
 assessmt <-
