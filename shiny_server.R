@@ -86,7 +86,7 @@ rowNames <- list("12" = c(month.name), "1" = c("Year"))
 
 
 server <- function(input, output) {
-  source("utilities.R")
+  source("utilities.R") #DM: change to utilities_shiny.r?
 
   # Dynamic input sections
 
@@ -128,7 +128,21 @@ server <- function(input, output) {
       )
     })
 
-
+#DM: add here a option to chose between commercial first or rec first
+  output$Comm_v_Rec <-
+    renderUI({
+      selectInput(
+        "Comm_v_Rec", #DM: need better text
+        label = div(style = "font-size:13px", "Bag limit size"),
+        choices = c(
+          "Rec" = 1,
+          "Comm" = 2
+        ),
+        width = "40%",
+        selected = 1
+      )
+    })
+  
   ## Dynamic input table
 
   valuesUser <- reactiveValues(data = NULL) # assign it with NULL
@@ -175,14 +189,23 @@ server <- function(input, output) {
         tmpX[ii, ] <- tmpX[ii, ] * noVessels[, 2]
       }
       leftOver <- round(reactiveData()$ICESadvComm - sum(tmpX, na.rm = TRUE), 0)
-
-      if (leftOver < 0) {
-        paste("Quota remaining: ", "<span style=\"color:red\">", leftOver, "t", "</span>")
+      
+      #DM: different text depednign on whether rec or comm goes first
+      if (as.numeric(input$Comm_v_Rec)==1) {
+        if (leftOver < 0) {
+          paste("Quota remaining: ", "<span style=\"color:red\">", leftOver, "t", "</span>")
+        } else {
+          paste("Quota remaining: ", "<span style=\"color:green\">", leftOver, "t", "</span>")
+        }
       } else {
-        paste("Quota remaining: ", "<span style=\"color:green\">", leftOver, "t", "</span>")
+        if ((leftOver-reactiveData()$recCatch) < 0) {
+          paste("Quota remaining: ", "<span style=\"color:red\">", leftOver, "t; with ",round(reactiveData()$recCatch,0)," t expected to be landed by recreational fishers given the chosen options", "</span>")
+        } else {
+          paste("Quota remaining: ", "<span style=\"color:green\">", leftOver, "t; with ",round(reactiveData()$recCatch,0)," t expected to be landed by recreational fishers given the chosen options", "</span>")
+        }
       }
-    })
-
+        
+   })
 
   ##### -------------------------
   ### Reactive section
@@ -222,7 +245,8 @@ server <- function(input, output) {
 
 
       # Calculate what is left for the commercial fleets
-      ICESadvComm <- ICESadv - recCatch
+      #DM: changes here. Currently the advice will be overshot if they allocate too much catch to the commercial without increasing the restrictions on the recreational catch
+      if (as.numeric(input$Comm_v_Rec)==1) ICESadvComm <- ICESadv - recCatch else ICESadvComm <- ICESadv
 
       ## Monthly or Annual forecast
       Monthly <- input$TimeStep == 12
@@ -367,13 +391,24 @@ server <- function(input, output) {
     })
 
   # Output for the total amont available after the recreational selection
+  #DM: trying to change the text below depending on whether rec or Comm catch taken first
   output$ICESadvComm <-
     renderText({
-      paste0(
-        " Remaining available catch is = ",
-        round(reactiveData()$ICESadvComm, 0),
-        " t."
+      if (as.numeric(input$Comm_v_Rec)==1) { 
+        paste0(
+          " Remaining available catch is = ",
+          round(reactiveData()$ICESadvComm, 0),
+          " t."
       )
+      } else {
+        paste0(
+          " Remaining available catch is = ",
+          round(reactiveData()$ICESadvComm, 0),
+          " t; with ",
+          round(reactiveData()$recCatch,0),
+          " t expected to be landed by recreational fishers given the chosen options"
+        )
+      }
     })
 
   # hiding wellPanels

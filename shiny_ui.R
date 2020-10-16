@@ -60,6 +60,9 @@ ui <- shiny::navbarPage(
         # SelectBagLimit is coming from renderUI in server.r
         uiOutput("SelectBagLimit"),
 
+        #DM: Comm_v_Rec is coming from renderUI in server.r
+        uiOutput("Comm_v_Rec"),
+        
         h5(textOutput("RecF")),
 
         h5(textOutput("ICESadvComm")),
