@@ -238,13 +238,14 @@ runForecast <-
   totCommCatch <- sum(realisedCatch[13,])
  
   # to make perfect with advice
+  #DM: replaced "(ICESadv-recCatch)" with "ICESadvComm" in 3 places
   if (Monthly) {
-    if (sum(catches[13,], na.rm=T)>(ICESadv-recCatch)) ft <- T else ft <- F
+    if (sum(catches[13,], na.rm=T)>ICESadvComm) ft <- T else ft <- F
   }
   if (!Monthly) {
-    if (sum(catches[1,], na.rm=T)>(ICESadv-recCatch)) ft <- T else ft <- F
+    if (sum(catches[1,], na.rm=T)>ICESadvComm) ft <- T else ft <- F
   }
-  if (ft) adj <- (ICESadv-recCatch)/totCommCatch else adj <- 1
+  if (ft) adj <- ICESadvComm/totCommCatch else adj <- 1
   totCommCatch <- adj*totCommCatch
   totCommLandings <- adj*totCommLandings 
   totCommDiscards <- adj*totCommDiscards 
@@ -401,11 +402,11 @@ runForecast <-
   forecastTable[, "F Commercial discards"] <- Fdisbar
   forecastTable[, "F Recreational removals"] <- FbarRec
   forecastTable[, "SSB (2021)"] <- round(ssb2021,0)
-  forecastTable[, "% SSB change"] <- round(100*(ssb2021-11413)/11413,1)
+  forecastTable[, "% SSB change"] <- round(100*(ssb2021-11413)/11413,1)  #DM: change from fixed value
   if (ft) {
     if (ICESadvOpt=="MSY") forecastTable[, "% Advice change"] <- 7.8 else forecastTable[, "% Advice change"] <- -9.5
   }
-  if (!ft) forecastTable[, "% Advice change"] <- round(100*((totCommCatch+recCatch)-1806)/1806,1)
+  if (!ft) forecastTable[, "% Advice change"] <- round(100*((totCommCatch+recCatch)-1806)/1806,1) #DM: change from fixed value
   
   # 2019 Advice sheet catch scenarios
   AdviceScenarios <- read.csv("data/bss.27.4bc7ad-h 2019 Advice scenarios.csv")
