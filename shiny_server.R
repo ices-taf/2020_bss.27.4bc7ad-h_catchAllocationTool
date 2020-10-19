@@ -9,7 +9,7 @@ require(shinythemes)
 require(DT)
 
 # Additional functions
-source("utilities.R")
+source("utilities_shiny.R") #DM: changed to utilities_shiny.r
 
 # Read in required data
 
@@ -86,7 +86,7 @@ rowNames <- list("12" = c(month.name), "1" = c("Year"))
 
 
 server <- function(input, output) {
-  source("utilities.R") #DM: change to utilities_shiny.r?
+  source("utilities_shiny.R") #DM: changed to utilities_shiny.r
 
   # Dynamic input sections
 
