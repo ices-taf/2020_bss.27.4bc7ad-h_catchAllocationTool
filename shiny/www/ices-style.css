@@ -1,0 +1,13 @@
+
+/* move text below navbar */
+body {padding-top: 70px;}
+
+/* navbar background */
+.navbar-default {
+    background-color: #dd4814 !important;
+}
+
+/* run simulation button */
+#go {
+  background-color:#dd4814
+}
