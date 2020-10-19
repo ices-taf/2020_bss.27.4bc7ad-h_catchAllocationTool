@@ -8,7 +8,7 @@ library(dplyr)
 mkdir("data")
 
 # year
-yr_idx <- c(2017, 2018)
+load("data/globals.RData")
 
 # load assessment results
 load("data/assessmemt.RData")
@@ -41,7 +41,7 @@ age <-
       LengthClassInMm, Age, NumberOfFish
   ) %>%
   filter(
-    Year %in% yr_idx
+    Year %in% globals$yr_idx
   ) %>%
   mutate(
     LengthClass = pop_len_mm[

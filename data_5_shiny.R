@@ -7,6 +7,9 @@ library(tidyr)
 
 mkdir("data")
 
+# year
+load("data/globals.RData")
+
 # Define assessment folder and extract outputs
 assessmt <-
   SS_output(taf.data.path("assessment"), covar = FALSE, printstats = FALSE)
@@ -22,7 +25,7 @@ str(defs)
 weights_age_Rec <-
   assessmt$ageselex %>%
     filter(
-      Yr == 2018 &
+      Yr ==  globals$yr_idx[2] &
         Fleet == defs$fleet_ID[defs$fleet_names == "RecFish"] &
         Factor == "bodywt"
     ) %>%
@@ -32,12 +35,13 @@ weights_age_Rec <-
 
 write.taf(weights_age_Rec, dir = "shiny/data")
 
+
 # weights at age in other fleets
 # used were "other" or "French" == "Com D"
 weights_age <-
   assessmt$ageselex %>%
     filter(
-      Yr == 2018 &
+      Yr == globals$yr_idx[2] &
         Fleet == defs$fleet_ID[defs$fleet_names == "French"] &
         Factor == "bodywt"
     ) %>%
@@ -60,19 +64,19 @@ row.names(Fatage) <- assessmt$Z_at_age$Year
 Fatage <- Fatage[,-(1:3)]
 Fatage[,ncol(Fatage)] <- Fatage[,ncol(Fatage) - 1]
 
-# catage 2018
+# catage last year
 catage <- assessmt$catage[c("Fleet", "Yr", paste(0:30))]
-catage18 <- filter(catage, Yr == 2018)
+catage_lasyear <- filter(catage, Yr == globals$yr_idx[2])
 
 discard <- assessmt$discard[c("Fleet", "Yr", paste(0:30))]
-catage18 <- filter(catage, Yr == 2018)
+catage_lasyear <- filter(catage, Yr == globals$yr_idx[2])
 
 
 # partial Fs
 pFatage <-
-  Fatage["2018",] *
-    filter(catage18, Fleet == recFleet$fleet_ID)[-(1:2)] /
-    colSums(catage18[-(1:2)])
+  Fatage[paste(globals$yr_idx[2]),] *
+    filter(catage_lasyear, Fleet == recFleet$fleet_ID)[-(1:2)] /
+    colSums(catage_lasyear[-(1:2)])
 
 
 # lots of files to generate here:

@@ -6,8 +6,8 @@ library(readr)
 library(ggplot2)
 library(dplyr)
 
-# Select year of interest
-yr_idx <- c(2017, 2018)
+# year
+load("data/globals.RData")
 
 # load assessment results
 load("data/assessmemt.RData")
@@ -28,7 +28,7 @@ len <-
   len %>%
   filter(
     CatchCategory == "LAN" &
-      Year %in% yr_idx
+      Year %in% globals$yr_idx
   ) %>%
   select(
     -SUM_NoAtLengthInSample, -CatchCategory, -LengthCode, -Species, -EnglishName, -Stock
@@ -62,7 +62,7 @@ land <-
   land %>%
   filter(
     FlagCountry %in% unique(len$FlagCountry) &
-      Year %in% yr_idx,
+      Year %in% globals$yr_idx,
   ) %>%
   select(
     -Stock, -Species, -SpeciesDesc

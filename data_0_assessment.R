@@ -1,5 +1,6 @@
 
 # save assessment output
+library(r4ss)
 
 assessmt <-
   SS_output(

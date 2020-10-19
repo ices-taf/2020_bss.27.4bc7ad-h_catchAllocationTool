@@ -4,8 +4,8 @@ library(ggplot2)
 library(sicegar) # forselection curves
 library(r4ss) # for rectreational selex
 
-# Year
-yr_idx <- c(2017, 2018)
+# year
+load("data/globals.RData")
 
 # Read in length frequencies
 agefreqs <- read.taf("data/ages_for_selectivity.csv")

@@ -7,6 +7,9 @@ library(icesTAF)
 
 mkdir("data")
 
+# create global or configuration settings
+sourceTAF("data_0_globals.R")
+
 sourceTAF("data_0_assessment.R")
 
 sourceTAF("data_1_ALK.R")
