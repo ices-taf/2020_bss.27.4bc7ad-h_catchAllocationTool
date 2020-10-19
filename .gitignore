@@ -43,3 +43,6 @@ rsconnect/
 /model/
 /report/
 /shiny/
+
+# excel temp files
+~[$]*.xlsx
