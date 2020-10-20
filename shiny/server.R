@@ -9,12 +9,12 @@ require(shinythemes)
 require(DT)
 
 # Additional functions
-source("utilities_shiny.R") #DM: changed to utilities_shiny.r
+source("utilities.R")
 
 # Read in required data
 
+
 ## Initial population
-# TEMP# Only had population numbers at Jan 2020 out to age 16+. Here manually expanded the 16+ to fill ages up to 20.
 pop_age_2020 <- read.csv("data/pop_age_2020.csv")
 
 # H.Cons Retained mean weights from 'Bass47_STF 2019 assessment 20190514.xlsx'
@@ -36,7 +36,8 @@ discard_Sel <- read.csv("data/discard_selectivity.csv")
 # discard proportions by gear (from last 3 years of French and English data)
 # adjusted to match assumed total discard rate in the advice forecast
 # no discard selectivites available, so projection simply uses gear landings selectivities
-# discard proportion is used on the results to divide total catch by gear in landings and discards by gear (only C@A will be presented, no L@A or D@A)
+# discard proportion is used on the results to divide total catch by gear in landings and discards
+# by gear (only C@A will be presented, no L@A or D@A)
 discard_prop <- read.csv("data/discard_proportions.csv")
 
 ## Recreational fisheries
@@ -86,66 +87,13 @@ rowNames <- list("12" = c(month.name), "1" = c("Year"))
 
 
 server <- function(input, output) {
-  source("utilities.R")
 
-  # Dynamic input sections
-
-  ## Code to select the recreational options from section boxes
-
-  output$SelectOpenSeason <-
-    renderUI({
-      selectInput(
-        "OpenSeason",
-        label = div(style = "font-size:13px", "Duration of open season"),
-        choices = c(
-          "0 months" = 1,
-          "3 months" = 2,
-          "6 months" = 3,
-          "7 months" = 4,
-          "9 months" = 5,
-          "10 months" = 6,
-          "12 months" = 7
-        ),
-        width = "40%",
-        selected = 4
-      )
-    })
-
-  output$SelectBagLimit <-
-    renderUI({
-      selectInput(
-        "BagLimit",
-        label = div(style = "font-size:13px", "Bag limit size"),
-        choices = c(
-          "1 Fish" = 1,
-          "2 Fish" = 2,
-          "3 Fish" = 3,
-          "4 Fish" = 4,
-          "5+ Fish" = 5
-        ),
-        width = "40%",
-        selected = 1
-      )
-    })
-
-#DM: add here a option to chose between commercial first or rec first
-  output$Comm_v_Rec <-
-    renderUI({
-      selectInput(
-        "Comm_v_Rec", #DM: need better text
-        label = div(style = "font-size:13px", "Bag limit size"),
-        choices = c(
-          "Rec" = 1,
-          "Comm" = 2
-        ),
-        width = "40%",
-        selected = 1
-      )
-    })
-
-  ## Dynamic input table
+  # Dynamic input sections - where the input form changes
+  # depending on the state.  Static inputs go in the ui.
 
   valuesUser <- reactiveValues(data = NULL) # assign it with NULL
+
+  print(str(input))
 
   observeEvent(
     input$TimeStep,
@@ -205,7 +153,7 @@ server <- function(input, output) {
         }
       }
 
-   })
+  })
 
   ##### -------------------------
   ### Reactive section
@@ -252,10 +200,6 @@ server <- function(input, output) {
       Monthly <- input$TimeStep == 12
 
       ## Fleet catches
-      # TEMP# INPUT$CatchGear replaces input/ouput$CatchGear, which comes from the hands on table code below
-      # This data file is not needed for the shiny operation
-      # Note: users specify total catch by gear (part of this will be discarded)
-      # CatchGear <- read.csv("data/CatchGear.csv")
       CatchGear <- hot_to_r(input$table)
       names(CatchGear) <- gsub(" ", "_", names(CatchGear))
       # Calculate TOTAL

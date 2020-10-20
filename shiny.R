@@ -22,16 +22,9 @@ cp(taf.data.path("other/*"), "shiny/data")
 mkdir("shiny/www")
 cp(taf.data.path("www"), "shiny")
 
-# build html docs
-render(
-  "./shiny_Instructions.Rmd",
-  output_file = "Instructions.html", output_dir = "shiny"
-)
-
-render(
-  "./shiny_UsefulLinks.Rmd",
-  output_file = "UsefulLinks.html", output_dir = "shiny"
-)
+# copy markdown pages
+cp("shiny_Instructions.Rmd", "shiny/Instructions.Rmd")
+cp("shiny_UsefulLinks.Rmd", "shiny/UsefulLinks.Rmd")
 
 # copy in server and ui scripts
 cp("shiny_server.R", "shiny/server.R")
