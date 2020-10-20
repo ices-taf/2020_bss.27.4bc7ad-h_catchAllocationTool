@@ -11,6 +11,7 @@
 #' @tafSource script
 
 library(icesTAF)
+library(readr)
 taf.library(icesSharePoint)
 
 spgetfile(

@@ -1,5 +1,2 @@
-Gear,NoVessels
-Demersal_Trawl,594
-Gill_Nets,700
-Hooks_and_Lines,574
-Seines,34
+"Demersal Trawl", "Gill Nets","Hooks and Lines", Seines
+594, 700, 574, 34
