@@ -6,6 +6,7 @@ if (FALSE) {
   load("model/input.RData")
 
   fmt_table(input$data)
+
   leftOver <- round(input$ICESadvComm - sum(calc_tonnes(input$data, input$noVessels), na.rm = TRUE), 0)
   remaining_quota(leftOver, input$Comm_v_Rec, input$recCatch)
   recreationalF(input$recCatch, input$FbarRec)

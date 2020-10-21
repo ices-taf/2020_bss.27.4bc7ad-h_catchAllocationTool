@@ -11,7 +11,9 @@ mkdir("output")
 load("model/input.RData")
 age_data <- input$age_data
 
-load("model/out.RData")
+load("model/forecast.RData")
+out <- forecast$out
+
 
 gears <- names(input$data)
 

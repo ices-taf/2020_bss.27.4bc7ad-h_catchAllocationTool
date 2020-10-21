@@ -3,17 +3,27 @@
 ## process
 calc_total <- function(data) {
   # if a hot table, extract the data from it
-  if (inherits("table", "rhandsontable")) {
+  if (inherits(data, "rhandsontable")) {
     data <- hot_to_r(data)
   }
   if (!is.data.frame(data)) {
     data <- as.data.frame(data)
   }
-  rownames(data) <- month.name
+
+  # strip off total
+  if ("TOTAL" %in% rownames(data)) {
+    data <- data[-grep("TOTAL", rownames(data)), ]
+  }
+
+  # set row names
+  if (nrow(data) == 12) {
+    rownames(data) <- month.name
+  } else {
+    rownames(data) <- "Annual"
+  }
 
   # add total row
-  data["TOTAL", ] <- colSums(data[setdiff(rownames(data), "TOTAL"), ], na.rm = TRUE)
-  data
+  rbind(data, TOTAL = colSums(data, na.rm = TRUE))
 }
 
 # calculate total catch by gear
@@ -28,8 +38,8 @@ calc_tonnes_by_vessel <- function(data, noVessels) {
 
 
 ## formating for ui
-fmt_table <- function(data) {
-  data <- calc_total(data)
+fmt_table <- function(data, total = FALSE) {
+  if (total) data <- calc_total(data)
   rhandsontable(data, rowHeaderWidth = 90, colWidths = 119) %>%
     hot_row(nrow(data), readOnly = TRUE)
 }
@@ -59,7 +69,7 @@ ICESadvice <- function(ICESadv) {
 }
 
 ICESadviceCommercial <- function(Comm_v_Rec, ICESadvComm) {
-  if (input$Comm_v_Rec == 1) {
+  if (Comm_v_Rec == 1) {
     glue(" Remaining available catch is = {round(ICESadvComm, 0)} t.")
   } else {
     glue(
@@ -71,7 +81,7 @@ ICESadviceCommercial <- function(Comm_v_Rec, ICESadvComm) {
 
 # summaries of forecasts
 vclsGearTable <- function(TimeStep, vclsGearTable) {
-  if (input$TimeStep == 12) {
+  if (TimeStep == 12) {
     vclsGearTable
   } else {
     rbind(

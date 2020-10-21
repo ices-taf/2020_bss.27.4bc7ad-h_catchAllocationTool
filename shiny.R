@@ -13,11 +13,13 @@ mkdir("shiny/data")
 
 # copy in required data
 cp("data/age_data.csv", "shiny/data")
+cp("data/gear_selectivity_age.csv", "shiny/data")
 cp("data/other_data.RData", "shiny/data")
 
 # copy in utilities
 cp(
-  c("utilities_shiny.R", "utilities_setup_input.R", "utilities_gearCatches.R"),
+  c("utilities_shiny.R", "utilities_setup_input.R",
+  "utilities_gearCatches.R", "utilities_forecast.R"),
   "shiny"
 )
 

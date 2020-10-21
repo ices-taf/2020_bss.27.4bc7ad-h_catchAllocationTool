@@ -2,9 +2,9 @@
 # When optimising fmults, repress is set to TRUE
 
 # Objective function for optimising fmults (sum of squares)
-objective_func <- function(fmults, gearcatch, age_data, selectivity_age, TimeStep) {
+objective_func <- function(fmults, gearcatch, age_data, selectivity_age, TimeStep, other_data) {
   gearcatch_pred <-
-    gearCatches(fmults, age_data, selectivity_age, TimeStep, quick = TRUE)
+    gearCatches(fmults, age_data, selectivity_age, TimeStep, other_data, quick = TRUE)
 
   sum((gearcatch_pred - gearcatch)^2)
 }
@@ -14,9 +14,9 @@ objective_func <- function(fmults, gearcatch, age_data, selectivity_age, TimeSte
 # data, population numbers, recreational fishing mortality, discard selection
 # discard proportion and natural mortality
 
-gearCatches <- function(fmults, age_data, selectivity_age, TimeStep, quick = TRUE) {
+gearCatches <- function(fmults, age_data, selectivity_age, TimeStep, other_data, quick = TRUE) {
   gears <- names(selectivity_age)[-1]
-  nages <- 17
+  nages <- nrow(selectivity_age)
   ngears <- length(gears)
 
   # calculate Fs and Z
@@ -35,6 +35,7 @@ gearCatches <- function(fmults, age_data, selectivity_age, TimeStep, quick = TRU
   if (sum(projCatch[1:ngears]) == 0) {
     disN <- replace(landN, TRUE, 0)
     catchmort <- fmort
+    #gearDiscards <- replace(landN, TRUE, 0)
   } else {
     activeDisProp <- other_data$discard_prop[gears] * projCatch[gears] / sum(projCatch[gears])
 
@@ -47,12 +48,12 @@ gearCatches <- function(fmults, age_data, selectivity_age, TimeStep, quick = TRU
     disN <- age_data$N * (1 - exp(-zmort)) * disF / zmort
     colnames(disN) <- gears
     catchmort <- fmort + disF
-    gearDiscards <- colSums(disN * age_data$weights_age)
+    #gearDiscards <- colSums(disN * age_data$weights_age)
   }
 
   list(
     gearCatches = projCatch,
-    gearDiscards = gearDiscards,
+    #gearDiscards = gearDiscards,
     catch_n = disN + landN,
     land_n = landN, dis_n = disN,
     catch_f = catchmort,

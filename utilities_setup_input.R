@@ -1,10 +1,16 @@
 # Given the settings in the form in the app, set up the data that does
 # not require any modelling
 #
-setup_input <- function(TimeStep = 12, ICESadvComm = 1, AdviceType = "MSY",
-                        Comm_v_Rec = 1, OpenSeason = 2, BagLimit = 2,
-                        source_data) {
-  stopifnot(TimeStep %in% c(1, 12) || length(TimeStep) == 1)
+setup_input <- function(TimeStep = c("1", "12"), AdviceType = "MSY",
+                        Comm_v_Rec = "1", OpenSeason = "4", BagLimit = "1",
+                        age_data, source_data) {
+  TimeStep = match.arg(TimeStep)
+
+  # convert to numerics
+  TimeStep <- type.convert(TimeStep)
+  Comm_v_Rec <- type.convert(Comm_v_Rec)
+  OpenSeason <- type.convert(OpenSeason)
+  BagLimit <- type.convert(BagLimit)
 
   data <-
     data.frame(

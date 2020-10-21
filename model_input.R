@@ -16,8 +16,8 @@ load("data/other_data.RData")
 # set up (useing defaults)
 input <-
   setup_input(
-    TimeStep = 12, ICESadvComm = 1, AdviceType = "MSY",
-    Comm_v_Rec = 1, OpenSeason = 2, BagLimit = 2,
+    TimeStep = "12", AdviceType = "MSY",
+    Comm_v_Rec = "1", OpenSeason = "2", BagLimit = "2",
     source_data = other_data
   )
 
