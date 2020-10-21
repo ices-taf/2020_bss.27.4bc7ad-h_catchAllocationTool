@@ -1,23 +1,14 @@
 
 mkdir("report")
+source("utilities_forecast.R")
 
-## Catch y gear table
-CatchGearTable <-
-  rbind(
-    as.matrix(round(realisedCatch)),
-    "F" = c(as.numeric(gearFTable), as.numeric(FbarRec))
-  )
+forecast_summary <- summarise_forecast(forecast, input)
 
-# Add total column
-CatchGearTable <-
-  cbind(
-    Month = row.names(CatchGearTable),
-    CatchGearTable,
-    TOTAL = rowSums(CatchGearTable, na.rm = TRUE)
-  )
-CatchGearTable["F", "TOTAL"] <- Ftotbar # to account for rounding errors
 
+CatchGearTable <- catchGearTable(forecast_summary)
 write.csv(CatchGearTable, file = "report/CatchGearTable.csv", row.names = FALSE)
+
+
 
 
 

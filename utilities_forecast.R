@@ -74,9 +74,134 @@ run_forecast <- function(gear_catches, selectivity_age, input, other_data) {
     out[[i]] <- forecast
   }
 
+  # Change ages for Jan 2021
+  initPop[, ncol(initPop)] <-
+    c(
+      0,
+      initPop[-nrow(initPop) + 0:1, ncol(initPop)],
+      initPop[nrow(initPop), ncol(initPop)] + initPop[nrow(initPop) - 1, ncol(initPop)]
+    )
 
-  list(out = out, catches = catches)
+  list(out = out, catches = catches, initPop = initPop)
 }
+
+
+
+
+summarise_forecast <- function(forecast, input) {
+
+  out <- forecast$out
+  age_data <- input$age_data
+
+  gears <- names(input$data)
+
+  # Commercial Landings
+  realisedLandings <- do.call(rbind, lapply(out, "[[", "gearCatches"))[, gears, drop = FALSE]
+  totCommLandings <- sum(realisedLandings)
+
+  # Commercial Discards
+  realisedDiscards <- do.call(rbind, lapply(out, "[[", "gearDiscards"))[, gears, drop = FALSE]
+  totCommDiscards <- sum(realisedDiscards)
+
+  # Commercial Catch
+  realisedCommCatch <- realisedLandings + realisedDiscards
+  totCommCatch <- sum(realisedCommCatch)
+
+  # to make perfect with advice
+  if (sum(forecast$catches, na.rm = TRUE) > input$ICESadvComm) {
+    adj <- input$ICESadvComm / totCommCatch
+    totCommCatch <- input$ICESadvComm
+    totCommLandings <- adj * totCommLandings
+    totCommDiscards <- adj * totCommDiscards
+    realisedCommCatch <- adj * realisedCommCatch
+  }
+
+  # Catch including recreational
+  realisedCatch <-
+    calc_total(cbind(realisedCommCatch, Recreational = NA))
+  realisedCatch["TOTAL", "Recreational"] <- input$recCatch
+
+  totalCatch <- totCommCatch + input$recCatch
+
+
+
+
+
+
+  # Catch at age
+  catch_n <-
+    cbind(
+      Reduce("+", lapply(out, "[[", "catch_n")),
+      Recreational = age_data$catchRec
+    )
+
+  ### F values
+  ## Total
+  totalF <- Reduce("+", lapply(out, "[[", "total_z")) - age_data$M
+  Ftotbar <- icesRound(mean(totalF[5:16])) # ages 4-15
+
+
+  ## Commercial F and Fbar
+  catchF <- Reduce("+", lapply(out, "[[", "catch_f"))
+  Fcomm <- rowSums(catchF) # F landings + discards
+  Fcommbar <- icesRound(mean(Fcomm[5:16]))
+  ## By gear
+  gearFTable <- colMeans(catchF[5:16, ])
+  gearFTable[] <- icesRound(gearFTable)
+
+
+  ## Landings
+  landF <- Reduce("+", lapply(out, "[[", "land_f"))
+  Fland <- rowSums(landF) # F landings
+  Flandbar <- icesRound(mean(Fland[5:16]))
+
+
+  ## Discards
+  Fdis <- Reduce("+", lapply(out, "[[", "dis_f"))
+  Fdisbar <- icesRound(mean(Fdis[5:16]))
+
+  ## Annual recreational catch and F
+  # recCatch
+  FbarRec <- icesRound(input$FbarRec)
+
+  # SSB 2021
+  ssb2021 <- sum(forecast$initPop[, ncol(forecast$initPop)] * input$age_data$mat * input$age_data$stkwt)
+
+  list(
+    realisedLandings = realisedLandings,
+    realisedDiscards = realisedDiscards,
+    realisedCommCatch = realisedCommCatch,
+    realisedCatch = realisedCatch,
+    FbarRec = FbarRec,
+    Ftotbar = Ftotbar
+  )
+}
+
+
+catchGearTable <- function(forecast_summary) {
+
+  out <-
+    rbind(
+      as.matrix(round(forecast_summary$realisedCatch)),
+      "F" = c(as.numeric(forecast_summary$gearFTable), as.numeric(forecast_summary$FbarRec))
+    )
+
+  # Add total column
+  out <-
+    cbind(
+      "Month" = row.names(out),
+      out,
+      TOTAL = rowSums(out, na.rm = TRUE)
+    )
+  out["F", "TOTAL"] <- forecast_summary$Ftotbar # to account for rounding errors
+
+  if (nrow(out) < 12) {
+    colnames(out)[1] <- "."
+  }
+
+  out
+}
+
 
 
 catch_n_plot <- function(forecast, input) {

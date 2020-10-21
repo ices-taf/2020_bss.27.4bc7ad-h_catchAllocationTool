@@ -24,7 +24,8 @@ gearCatches <- function(fmults, age_data, selectivity_age, TimeStep, other_data,
   dismort <- age_data$Discard_Sel * fmults[ngears + 1]
   zmort <- apply(fmort, 1, sum) + dismort + (age_data$f_age_rec_2020 + age_data$M) / TimeStep
 
-  projCatch <- colSums(age_data$N * (1 - exp(-zmort)) * age_data$weights_age * cbind(fmort, Discards = dismort) / zmort, na.rm = TRUE)
+  gearCatches <- age_data$N * (1 - exp(-zmort)) * age_data$weights_age * cbind(fmort, Discards = dismort) / zmort
+  projCatch <- colSums(gearCatches, na.rm = TRUE)
 
   if (quick) {
     return(projCatch)
@@ -35,7 +36,7 @@ gearCatches <- function(fmults, age_data, selectivity_age, TimeStep, other_data,
   if (sum(projCatch[1:ngears]) == 0) {
     disN <- replace(landN, TRUE, 0)
     catchmort <- fmort
-    #gearDiscards <- replace(landN, TRUE, 0)
+    gearDiscards <- replace(landN, TRUE, 0)
   } else {
     activeDisProp <- other_data$discard_prop[gears] * projCatch[gears] / sum(projCatch[gears])
 
@@ -48,12 +49,12 @@ gearCatches <- function(fmults, age_data, selectivity_age, TimeStep, other_data,
     disN <- age_data$N * (1 - exp(-zmort)) * disF / zmort
     colnames(disN) <- gears
     catchmort <- fmort + disF
-    #gearDiscards <- colSums(disN * age_data$weights_age)
+    gearDiscards <- colSums(disN * age_data$weights_age)
   }
 
   list(
-    gearCatches = projCatch,
-    #gearDiscards = gearDiscards,
+    gearCatches = colSums(gearCatches, na.rm = TRUE),
+    gearDiscards = colSums(gearDiscards, na.rm = TRUE),
     catch_n = disN + landN,
     land_n = landN, dis_n = disN,
     catch_f = catchmort,

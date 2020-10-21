@@ -18,7 +18,7 @@ calc_total <- function(data) {
   # set row names
   if (nrow(data) == 12) {
     rownames(data) <- month.name
-  } else {
+  } else if (nrow(data) == 1) {
     rownames(data) <- "Annual"
   }
 
@@ -91,15 +91,6 @@ vclsGearTable <- function(TimeStep, vclsGearTable) {
       ),
       vclsGearTable[13, ]
     )
-  }
-}
-
-# Output to get a dynamic output table using the time step
-CatchGearTable <- function(TimeStep, CatchGearTable) {
-  if (TimeStep == 12) {
-    CatchGearTable
-  } else {
-    CatchGearTable[c(13, 14), ]
   }
 }
 

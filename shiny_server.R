@@ -111,7 +111,7 @@ server <- function(input, output) {
       ICESadviceCommercial(setup_react$setup$Comm_v_Rec, setup_react$setup$ICESadvComm)
     })
 
-  forecast_react <- reactiveValues(forecast = NULL)
+  forecast_react <- reactiveValues(forecast = NULL, summary = NULL)
 
   observeEvent(
     input$go,
@@ -119,11 +119,14 @@ server <- function(input, output) {
       gear_catches <- setup_react$data[-nrow(setup_react$data),]
       gear_catches[is.na(gear_catches)] <- 0
       gear_catches <- calc_tonnes(gear_catches, setup_react$setup$noVessels)
-      forecast_react$forecast <- run_forecast(gear_catches, selectivity_age, setup_react$setup, other_data)
+      forecast <- run_forecast(gear_catches, selectivity_age, setup_react$setup, other_data)
+
+      forecast_react$forecast <- forecast
+
+      forecast_react$summary <- summarise_forecast(forecast, setup_react$setup)
+      print(forecast_react$summary)
     }
   )
-
-
 
 
   output$plot <-
@@ -133,28 +136,30 @@ server <- function(input, output) {
       ggplotly(p)
     })
 
-if (FALSE) {
 
   # Output to get a dynamic output table using the time step
   output$CatchGearTable <-
     renderTable({
-      req(input$TimeStep)
+      req(forecast_react$summary)
 
-      CatchGearTable(input$TimeStep, forecast()$CatchGearTable)
+      catchGearTable(forecast_react$summary)
     })
+
+if (FALSE) {
 
   output$vclsGearTable <-
     renderTable({
-      req(input$TimeStep)
+      req(forecast_react$summary)
 
-      vclsGearTable(input$TimeStep, forecast()$vclsGearTable)
+      vclsGearTable(setup_react$setup, forecast$vclsGearTable)
     })
 
   # Output forecast table (table 3)
   output$forecastTable <-
-    DT::renderDataTable(
-      fmt_forecast_table(forecast()$forecastTable)
-    )
+    DT::renderDataTable({
+      req(forecast_react$forecast)
+      fmt_forecast_table(forecast$forecastTable)
+    })
 }
 
   # hiding wellPanels
