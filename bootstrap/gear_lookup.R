@@ -12,12 +12,12 @@
 # Group metiers of interest
 gear_lookup <-
   list(
-    Gill = c("GN", "GNS", "GTR", "GND", "FYK"),
-    HookLine = c("LHM", "LHP", "LLS", "LLD", "LTL", "LX"),
-    PelTrawl = c("PTB", "PTM"),
-    Demtrawl = c("TBB", "OTB", "OTM", "OTT"),
+    "Gill Nets" = c("GN", "GNS", "GTR", "GND", "FYK"),
+    "Hooks and Lines" = c("LHM", "LHP", "LLS", "LLD", "LTL", "LX"),
+    "Pelagic Trawl" = c("PTB", "PTM"),
+    "Demersal Trawl" = c("TBB", "OTB", "OTM", "OTT"),
     Seines = c("SSC", "SDN", "SB"),
-    PurseSeine = "PS",
+    "Purse Seine" = "PS",
     Other = c("MIS", "DRB", "FPO", "LA", "HMD", "No")
   )
 

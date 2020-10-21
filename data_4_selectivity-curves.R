@@ -139,11 +139,11 @@ p +
 
 selex_final <- selex[selex$type != "data", ]
 selex_final <-
-  selex_final[!(selex_final$gear == "Demtrawl" & selex_final$type == "dblSigfit"), ]
+  selex_final[!(selex_final$gear == "Demersal Trawl" & selex_final$type == "dblSigfit"), ]
 selex_final <-
-  selex_final[!(selex_final$gear == "Gill" & selex_final$type == "sigfit"), ]
+  selex_final[!(selex_final$gear == "Gill Nets" & selex_final$type == "sigfit"), ]
 selex_final <-
-  selex_final[!(selex_final$gear == "HookLine" & selex_final$type == "dblSigfit"), ]
+  selex_final[!(selex_final$gear == "Hooks and Lines" & selex_final$type == "dblSigfit"), ]
 selex_final <-
   selex_final[!(selex_final$gear == "Other" & selex_final$type == "sigfit"), ]
 # DM# Change to extract Seine selectivity
@@ -151,7 +151,7 @@ selex_final <-
 selex_final <-
   selex_final[!(selex_final$gear == "Seines" & selex_final$type == "sigfit"), ]
 selex_final <-
-  selex_final[!(selex_final$gear == "PelTrawl"), ]
+  selex_final[!(selex_final$gear == "Pelagic Trawl"), ]
 
 
 # load assessment results
@@ -181,7 +181,7 @@ selex_pel <-
     Age = as.numeric(names(selex_pel)),
     Selectivity = as.vector(unlist(selex_pel))
   )
-selex_pel$gear <- "PelTrawl"
+selex_pel$gear <- "Pelagic Trawl"
 selex_pel$type <- "assessmt_selex_2019"
 selex_pel$AIC <- NA
 
@@ -211,9 +211,11 @@ gear_selectivity_age <-
   selex_final %>%
   select(Age, Selectivity, gear) %>%
   filter(
-    gear %in% c("Demtrawl", "Gill", "HookLine", "Seines")
+    gear %in% c("Demersal Trawl", "Gill Nets", "Hooks and Lines", "Seines")
   ) %>%
-  arrange(gear, Age)
-# rename gear names!
+  pivot_wider(
+    names_from = gear, values_from = Selectivity
+  ) %>%
+  arrange(Age)
 
 write.taf(gear_selectivity_age, dir = "data")
