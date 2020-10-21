@@ -21,6 +21,11 @@ calc_tonnes <- function(data, noVessels) {
   data * noVessels[rep(1, nrow(data)), names(data)]
 }
 
+calc_tonnes_by_vessel <- function(data, noVessels) {
+  data / noVessels[rep(1, nrow(data)), names(data)]
+}
+
+
 
 ## formating for ui
 fmt_table <- function(data) {
