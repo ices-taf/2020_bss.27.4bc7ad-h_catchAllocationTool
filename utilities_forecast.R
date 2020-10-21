@@ -1,17 +1,3 @@
-# Function to optimis fleet Fmults to take the specified catches
-# When optimising fmults, repress is set to TRUE
-
-# Objective function for optimising fmults (sum of squares)
-objective_func <- function(log_fmults, gearcatch, data, M, Frec, disSel, disProp, pop) {
-  gC <-
-    gearCatches(
-      fmults = log_fmults, dat = data, pop = pop, Frec = Frec,
-      disSel = disSel, disProp = disProp, M = M, repress = TRUE
-    )
-
-  sum((cG - gearcatch)^2)
-}
-
 
 
 

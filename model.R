@@ -8,4 +8,4 @@ library(icesTAF)
 mkdir("model")
 
 sourceTAF("model_input.R")
-#sourceTAF("model_forecast.R")
+sourceTAF("model_forecast.R")

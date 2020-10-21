@@ -1,51 +1,57 @@
+# Function to optimis fleet Fmults to take the specified catches
+# When optimising fmults, repress is set to TRUE
+
+# Objective function for optimising fmults (sum of squares)
+objective_func <- function(fmults, gearcatch, age_data, selectivity_age, TimeStep) {
+  gearcatch_pred <-
+    gearCatches(fmults, age_data, selectivity_age, TimeStep, quick = TRUE)
+
+  sum((gearcatch_pred - gearcatch)^2)
+}
+
 
 # function to compute catches by gear given a vector of F multipliers
 # data, population numbers, recreational fishing mortality, discard selection
 # discard proportion and natural mortality
 
-gearCatches <- function(fmults, dat, pop, Frec, disSel, disProp, M, repress = TRUE) {
-  gears <- unique(dat$gear)
+gearCatches <- function(fmults, age_data, selectivity_age, TimeStep, quick = TRUE) {
+  gears <- names(selectivity_age)[-1]
+  nages <- 17
+  ngears <- length(gears)
 
-  fmort <- matrix(0, nrow = 17, ncol = length(gears), dimnames = list(c(0:15, "16+"), gears))
-  dismort <- matrix(0, nrow = 17, ncol = 1, dimnames = list(c(0:15, "16+"), "DiscardsTotal"))
-  for (gg in 1:length(gears)) {
-    fmort[, gg] <- fmults[gg] * dat[dat$gear == gears[gg], "Selectivity"]
-  }
-  dismort <- fmults[length(gears) + 1] * disSel
-  zmort <- apply(fmort, 1, sum) + dismort + Frec[, 2] + M
+  # calculate Fs and Z
+  fmort <- as.matrix(selectivity_age[gears]) * rep(fmults[1:ngears], each = nages)
+  dismort <- age_data$Discard_Sel * fmults[ngears + 1]
+  zmort <- apply(fmort, 1, sum) + dismort + (age_data$f_age_rec_2020 + age_data$M) / TimeStep
 
-  projCatch <- matrix(0, nrow = 1, ncol = (length(gears) + 1), dimnames = list("catch", c(paste(gears, "Land", sep = "_"), "DiscardsTotal")))
-  for (gg in 1:length(gears)) {
-    projCatch[gg] <- sum((pop * (1 - exp(-zmort)) * dat[dat$gear == gears[gg], "Weight"]) * (fmort[, gg] / zmort), na.rm = T)
-    # could use discard weights (only very slightly different from landings weights)
-  }
-  projCatch[1 + length(gears)] <- sum((pop * (1 - exp(-zmort)) * dat[dat$gear == gears[gg], "Weight"]) * (dismort / zmort), na.rm = T)
+  projCatch <- colSums(age_data$N * (1 - exp(-zmort)) * age_data$weights_age * cbind(fmort, Discards = dismort) / zmort, na.rm = TRUE)
 
-  if (repress) {
+  if (quick) {
     return(projCatch)
   }
 
-  landN <- matrix(0, nrow = 17, ncol = length(gears), dimnames = list(c(0:15, "16+"), gears))
-  for (gg in 1:length(gears)) {
-    landN[, gg] <- pop * (1 - exp(-zmort)) * (fmort[, gg] / zmort)
-  }
-  catchmort <- fmort
-  disN <- matrix(0, nrow = 17, ncol = length(gears), dimnames = list(c(0:15, "16+"), gears))
-  if (sum(projCatch[, 1:length(gears)]) != 0) {
-    activeDisProp <- disProp
-    activeDisProp[, 2] <- (disProp[, 2] * projCatch[, 1:length(gears)]) / sum(projCatch[, 1:length(gears)])
-    for (gg in 1:length(gears)) {
-      disN[, gg] <- pop * (1 - exp(-zmort)) * (((dismort * activeDisProp[activeDisProp[, "Gear"] == gears[gg], 2]) / sum(activeDisProp[, 2])) / zmort)
-      catchmort[, gg] <- catchmort[, gg] + ((dismort * activeDisProp[activeDisProp[, "Gear"] == gears[gg], 2]) / sum(activeDisProp[, 2]))
-    }
+  landN <- age_data$N * (1 - exp(-zmort)) * fmort / zmort
+
+  if (sum(projCatch[1:ngears]) == 0) {
+    disN <- replace(landN, TRUE, 0)
+    catchmort <- fmort
   } else {
-    for (gg in 1:length(gears)) {
-      disN[, gg] <- pop * 0
-    }
+    activeDisProp <- other_data$discard_prop[gears] * projCatch[gears] / sum(projCatch[gears])
+
+    disF <-
+      outer(
+        dismort,
+        as.numeric(activeDisProp[gears] / sum(activeDisProp))
+      )
+
+    disN <- age_data$N * (1 - exp(-zmort)) * disF / zmort
+    catchmort <- fmort + disF
+    gearDiscards <- colSums(disN * age_data$weights_age)
   }
 
   list(
     gearCatches = projCatch,
+    gearDiscards = gearDiscards,
     catch_n = disN + landN,
     land_n = landN, dis_n = disN,
     catch_f = catchmort,
