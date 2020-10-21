@@ -206,6 +206,14 @@ ggplot(selex_final, aes(x = Age, y = Selectivity, colour = type)) +
 
 ggsave("data/final_selectivities_age.png")
 
-# save final selectivities
-selectivity_fits_age <- selex_final
-write.taf(selectivity_fits_age, dir = "data")
+# save in simple format for shiny app
+gear_selectivity_age <-
+  selex_final %>%
+  select(Age, Selectivity, gear) %>%
+  filter(
+    gear %in% c("Demtrawl", "Gill", "HookLine", "Seines")
+  ) %>%
+  arrange(gear, Age)
+# rename gear names!
+
+write.taf(gear_selectivity_age, dir = "data")

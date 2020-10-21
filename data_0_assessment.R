@@ -2,6 +2,8 @@
 # save assessment output
 library(r4ss)
 
+mkdir("data")
+
 assessmt <-
   SS_output(
     taf.data.path("assessment"),

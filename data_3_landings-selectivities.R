@@ -8,6 +8,7 @@ library(dplyr)
 
 # load assessment results
 load("data/assessmemt.RData")
+load("data/globals.RData")
 
 # combine len freqs with ALK and aggregate
 alk <- read_csv("data/ALK.csv", col_types = cols())
@@ -44,12 +45,12 @@ pop_age <-
   ]
 
 #extract length vector for year yr_idx from the assessment
-vecpop <- pop_age[pop_age$Yr %in% yr_idx, -1]
+vecpop <- pop_age[pop_age$Yr %in% globals$yr_idx, -1]
 vecpop <- as.vector(matrix(apply(vecpop, 1, function(x) x/sum(x)), nrow=1))
 popdf <-
   cbind.data.frame(
-    Year = rep(yr_idx, each = length(as.numeric(names(pop_age)[-1]))),
-    Age = rep(as.numeric(names(pop_age)[-1]), times = length(yr_idx)),
+    Year = rep(globals$yr_idx, each = length(as.numeric(names(pop_age)[-1]))),
+    Age = rep(as.numeric(names(pop_age)[-1]), times = length(globals$yr_idx)),
     freq = vecpop
   )
 

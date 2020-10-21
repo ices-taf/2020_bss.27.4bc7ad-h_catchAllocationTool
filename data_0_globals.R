@@ -6,7 +6,8 @@ mkdir("data")
 # year
 globals <-
   list(
-    yr_idx = c(2017, 2018)
+    yr_idx = c(2017, 2018),
+    ages = 0:16
   )
 
 
