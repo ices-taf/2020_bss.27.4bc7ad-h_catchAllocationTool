@@ -101,7 +101,7 @@ allocations_resultspanel <-
     conditionalPanel(
       "output.hide_panel",
       wellPanel(
-        plotOutput("plot"),
+        plotlyOutput("plot"),
         h5(helpText("Figure 1: Simulated catch-at-age, by gear. The dashed line (---) indicates the predicted catch-at-age in the ICES forecast."))
       ),
       wellPanel(
@@ -145,10 +145,10 @@ ui <-
               style = "margin-top: -14px; padding-right:10px;padding-bottom:10px",
               height = 60)),
 
-  tabPanel(
-    "Instructions",
-    includeMarkdown("Instructions.Rmd")
-  ),
+  #tabPanel(
+  #  "Instructions",
+  #  includeMarkdown("Instructions.Rmd")
+  #),
 
   tabPanel(
     "Allocations",
