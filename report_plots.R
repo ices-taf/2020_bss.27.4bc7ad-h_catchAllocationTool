@@ -9,17 +9,9 @@ load("data/globals.RData")
 
 ## Catch at age plot
 catch_data <-
-  cbind(
-    Age = globals$ages,
-    as.data.frame(catch_n)
-  ) %>%
-  pivot_longer(
-    -Age,
-    names_to = "Gear", values_to = "Catch"
-  ) %>%
-  mutate(
-    Catch = round(Catch)
-  )
+  cbind(Age = globals$ages, as.data.frame(catch_n)) %>%
+  pivot_longer(-Age, names_to = "Gear", values_to = "Catch") %>%
+  mutate(Catch = round(Catch))
 
 catch_advice <-
   data.frame(

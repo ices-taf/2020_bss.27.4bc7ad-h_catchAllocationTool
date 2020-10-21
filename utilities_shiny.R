@@ -6,6 +6,10 @@ calc_total <- function(data) {
   if (inherits("table", "rhandsontable")) {
     data <- hot_to_r(data)
   }
+  if (!is.data.frame(data)) {
+    data <- as.data.frame(data)
+  }
+  rownames(data) <- month.name
 
   # add total row
   data["TOTAL", ] <- colSums(data[setdiff(rownames(data), "TOTAL"), ], na.rm = TRUE)

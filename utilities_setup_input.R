@@ -42,10 +42,6 @@ setup_input <- function(TimeStep = 12, ICESadvComm = 1, AdviceType = "MSY",
   # Mean F for recreational ages 4-15
   FbarRec <- mean(age_data$f_age_rec_2020[5:16])
 
-  # Monthly F values to use as estimates of recreational mortality in the monthly forecast
-  # (final rec catch values determined from annually below)
-  age_data$f_age_rec_2020_month <- age_data$f_age_rec_2020 / 12
-
   # Get recreational catch at age and total catch
   age_data$catchRec <- age_data$N * (1 - exp(-totZ)) * age_data$f_age_rec_2020 / totZ
   recCatch <- sum(age_data$catchRec * age_data$weights_age_rec)
