@@ -6,6 +6,7 @@ library(glue)
 # Additional functions
 source("./utilities_setup_input.R")
 source("./utilities_shiny.R")
+source("./utilities_gearCatches.R")
 
 # Read in required data
 load("data/other_data.RData")
@@ -78,7 +79,7 @@ for (i in 1:input$TimeStep) {
       age_data = age_data,
       selectivity_age = selectivity_age,
       TimeStep = input$TimeStep,
-      lower = rep(0, length(lanDis)),
+      lower = rep(0, length(landings_and_discards)),
       method = "L-BFGS-B"
     )
 
@@ -93,4 +94,5 @@ for (i in 1:input$TimeStep) {
   out[[i]] <- forecast
 }
 
-save(out, file = "model/out.RData")
+#
+save(out, catches, file = "model/out.RData")
