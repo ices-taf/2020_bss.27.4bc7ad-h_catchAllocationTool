@@ -39,7 +39,7 @@ calc_tonnes_by_vessel <- function(data, noVessels) {
 
 ## formating for ui
 fmt_table <- function(data, total = FALSE) {
-  if (total) data <- calc_total(data)
+
   rhandsontable(data, rowHeaderWidth = 90, colWidths = 119) %>%
     hot_row(nrow(data), readOnly = TRUE)
 }
@@ -68,7 +68,7 @@ ICESadvice <- function(ICESadv) {
   glue("The initial advice is {ICESadv} t")
 }
 
-ICESadviceCommercial <- function(Comm_v_Rec, ICESadvComm) {
+ICESadviceCommercial <- function(Comm_v_Rec, ICESadvComm, recCatch) {
   if (Comm_v_Rec == 1) {
     glue(" Remaining available catch is = {round(ICESadvComm, 0)} t.")
   } else {

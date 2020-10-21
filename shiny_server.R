@@ -77,6 +77,17 @@ server <- function(input, output) {
       recreationalF(setup_react$setup$recCatch, setup_react$setup$FbarRec)
     })
 
+
+  output$noVesselsTable <-
+    renderTable(
+      {
+        tab <- setup_react$setup$noVessels
+        row.names(tab) <- "Number of Vessels"
+        tab
+      },
+      rownames = TRUE
+    )
+
   observe(
     {
       req(input$table)
@@ -108,7 +119,7 @@ server <- function(input, output) {
   # DM: trying to change the text below depending on whether rec or Comm catch taken first
   output$ICESadvComm <-
     renderText({
-      ICESadviceCommercial(setup_react$setup$Comm_v_Rec, setup_react$setup$ICESadvComm)
+      ICESadviceCommercial(setup_react$setup$Comm_v_Rec, setup_react$setup$ICESadvComm, setup_react$setup$recCatch)
     })
 
   forecast_react <- reactiveValues(forecast = NULL, summary = NULL)
@@ -124,7 +135,6 @@ server <- function(input, output) {
       forecast_react$forecast <- forecast
 
       forecast_react$summary <- summarise_forecast(forecast, setup_react$setup)
-      print(forecast_react$summary)
     }
   )
 

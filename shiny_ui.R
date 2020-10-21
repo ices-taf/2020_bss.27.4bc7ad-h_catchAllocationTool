@@ -84,7 +84,9 @@ allocations_inputpanel <-
     h5(textOutput("ICESadvComm")),
 
     hr(),
-    h4(helpText("Input catch allocations (in tonnes)")),
+    h4(helpText("Input catch allocations (in tonnes per vessel)")),
+    tableOutput("noVesselsTable"),
+    br(),
 
     actionButton("go", "Run simulation"),
     rHandsontableOutput('table'),
