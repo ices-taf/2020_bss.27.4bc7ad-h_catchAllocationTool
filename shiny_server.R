@@ -137,30 +137,36 @@ server <- function(input, output) {
     })
 
 
-  # Output to get a dynamic output table using the time step
-  output$CatchGearTable <-
-    renderTable({
-      req(forecast_react$summary)
-
-      catchGearTable(forecast_react$summary)
-    })
-
-if (FALSE) {
-
   output$vclsGearTable <-
     renderTable({
       req(forecast_react$summary)
-
-      vclsGearTable(setup_react$setup, forecast$vclsGearTable)
+      vclsGearTable(forecast_react$summary, setup_react$setup)
     })
+
+  # (table 2) Output to get a dynamic output table using the time step
+  output$CatchGearTable <-
+    renderTable({
+      req(forecast_react$summary)
+      catchGearTable(forecast_react$summary)
+    })
+
 
   # Output forecast table (table 3)
   output$forecastTable <-
     DT::renderDataTable({
-      req(forecast_react$forecast)
-      fmt_forecast_table(forecast$forecastTable)
+      req(forecast_react$summary)
+
+      forecast_table <- forecastTable(forecast_react$summary, setup_react$setup, other_data)
+
+      DT::datatable(forecast_table, options = list(dom = "t")) %>%
+        formatStyle(
+          "Basis",
+          target = "row",
+          color = styleEqual("Simulated Scenario", "white"),
+          backgroundColor = styleEqual("Simulated Scenario", "#dd4814")
+        )
     })
-}
+
 
   # hiding wellPanels
   output$hide_panel <- eventReactive(input$go, TRUE, ignoreInit = TRUE)

@@ -172,8 +172,14 @@ summarise_forecast <- function(forecast, input) {
     realisedDiscards = realisedDiscards,
     realisedCommCatch = realisedCommCatch,
     realisedCatch = realisedCatch,
+    Flandbar = Flandbar,
+    Fdisbar = Fdisbar,
     FbarRec = FbarRec,
-    Ftotbar = Ftotbar
+    Ftotbar = Ftotbar,
+    totCommCatch = totCommCatch,
+    totCommLandings = totCommLandings,
+    totCommDiscards = totCommDiscards,
+    ssb2021 = ssb2021
   )
 }
 
@@ -194,13 +200,94 @@ catchGearTable <- function(forecast_summary) {
       TOTAL = rowSums(out, na.rm = TRUE)
     )
   out["F", "TOTAL"] <- forecast_summary$Ftotbar # to account for rounding errors
+  out["TOTAL", 1] <- "Annual catch"
 
   if (nrow(out) < 12) {
     colnames(out)[1] <- "."
+    out <- out[-1, ]
   }
 
   out
 }
+
+
+
+vclsGearTable <- function(forecast_summary, input) {
+  gears <- names(input$data)
+
+  out <-
+    cbind(
+      Month = row.names(forecast_summary$realisedCatch),
+      round(calc_tonnes_by_vessel(forecast_summary$realisedCatch[, gears], input$noVessels), 2)
+    )
+  out["TOTAL", 1] <- "Annual catch/vessel"
+
+  if (nrow(out) < 12) {
+    colnames(out)[1] <- "."
+    out <- out[-1,]
+  }
+
+  return(out)
+
+  if (input$TimeStep == 12) {
+    out
+  } else {
+    colnames(out)[1] <- "."
+    rbind(
+      c(
+        "Average monthly catch/vessel",
+        as.character(round(as.numeric(out[13, -1]) / 12, 2))
+      ),
+      out[13, ]
+    )
+  }
+}
+
+
+
+
+forecastTable <- function(forecast_summary, input, other_data) {
+
+  ## Forecast table outputs
+  out <- matrix(NA_character_, ncol = 12, nrow = 1, dimnames = list(
+    input$AdviceType,
+    c(
+      "Basis", "Total Catch", "Commercial Landings", "Commercial discards", "Recreational removals", "Total F", "F Commercial landings",
+      "F Commercial discards", "F Recreational removals", "SSB (2021)", "% SSB change", "% Advice change"
+    )
+  ))
+
+  out[, "Basis"] <- "Simulated Scenario"
+  out[, "Total Catch"] <- round(forecast_summary$totCommCatch + input$recCatch, 0)
+  out[, "Commercial Landings"] <- round(forecast_summary$totCommLandings, 0)
+  out[, "Commercial discards"] <- round(forecast_summary$totCommDiscards, 0)
+  out[, "Recreational removals"] <- round(input$recCatch, 0)
+  out[, "Total F"] <- forecast_summary$Ftotbar
+  out[, "F Commercial landings"] <- forecast_summary$Flandbar
+  out[, "F Commercial discards"] <- forecast_summary$Fdisbar
+  out[, "F Recreational removals"] <- forecast_summary$FbarRec
+  out[, "SSB (2021)"] <- round(forecast_summary$ssb2021, 0)
+  out[, "% SSB change"] <- round(100 * (forecast_summary$ssb2021 - 11413) / 11413, 1) # DM: change from fixed value
+  out[, "% Advice change"] <- round(100 * ((forecast_summary$totCommCatch + input$recCatch) - 1806) / 1806, 1) # DM: change from fixed value
+
+  if (FALSE) {
+    # some kind of fixed value here
+    if (input$ICESadvOpt == "MSY") {
+      out[, "% Advice change"] <- 7.8
+    } else {
+      out[, "% Advice change"] <- -9.5
+    }
+  }
+
+  # 2019 Advice sheet catch scenarios
+  AdviceScenarios <- other_data$AdviceScenarios
+  names(AdviceScenarios) <- colnames(out)
+
+  out <- rbind(out, AdviceScenarios)
+
+  out
+}
+
 
 
 
@@ -221,7 +308,7 @@ catch_n_plot <- function(forecast, input) {
   catch_advice <-
     data.frame(
       Age = input$age_data$Age,
-      Advice = round(input$age_data[[input$AdviceType]])
+      ICES_forecast = round(input$age_data[[input$AdviceType]])
     )
 
   p <-
@@ -232,7 +319,7 @@ catch_n_plot <- function(forecast, input) {
     ) +
     geom_line(
       data = catch_advice, linetype = 2,
-      aes(x = Age, y = Advice)
+      aes(x = Age, y = ICES_forecast)
     ) +
     ylab("Catch-at-Age (thousands)") +
     theme(plot.background = element_rect(fill = "grey96")) +

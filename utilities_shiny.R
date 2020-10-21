@@ -78,29 +78,3 @@ ICESadviceCommercial <- function(Comm_v_Rec, ICESadvComm) {
     )
   }
 }
-
-# summaries of forecasts
-vclsGearTable <- function(TimeStep, vclsGearTable) {
-  if (TimeStep == 12) {
-    vclsGearTable
-  } else {
-    rbind(
-      c(
-        "Average monthly catch/vessel",
-        as.character(round(as.numeric(vclsGearTable[13, -1]) / 12, 2))
-      ),
-      vclsGearTable[13, ]
-    )
-  }
-}
-
-fmt_forecast_table <- function(forecastTable) {
-  # Output forecast table (table 3)
-  DT::datatable(forecastTable, options = list(dom = "t")) %>%
-    formatStyle(
-      "Basis",
-      target = "row",
-      color = styleEqual("Simulated Scenario", "white"),
-      backgroundColor = styleEqual("Simulated Scenario", "#dd4814")
-    )
-}

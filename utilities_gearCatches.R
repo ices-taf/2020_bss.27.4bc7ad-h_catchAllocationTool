@@ -49,7 +49,7 @@ gearCatches <- function(fmults, age_data, selectivity_age, TimeStep, other_data,
     disN <- age_data$N * (1 - exp(-zmort)) * disF / zmort
     colnames(disN) <- gears
     catchmort <- fmort + disF
-    gearDiscards <- colSums(disN * age_data$weights_age)
+    gearDiscards <- disN * age_data$weights_age
   }
 
   list(
