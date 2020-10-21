@@ -1,5 +1,2 @@
-Gear,DiscardRate
-Demersal_Trawl,0.14242948
-Gill_Nets,0.014768751
-Hooks_and_Lines,0.008276027
-Seines,0.027962496
+"Demersal Trawl", "Gill Nets","Hooks and Lines", Seines
+0.14242948,0.014768751,0.008276027,0.027962496
