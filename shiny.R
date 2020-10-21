@@ -12,11 +12,14 @@ mkdir("shiny")
 mkdir("shiny/data")
 
 # copy in required data
-cp(taf.data.path("BagLimitFs.csv"), "shiny/data")
+cp("data/age_data.csv", "shiny/data")
+cp("data/other_data.RData", "shiny/data")
 
-# other data
-# - try and reduce the copy pasting in the creation of these
-cp(taf.data.path("other/*"), "shiny/data")
+# copy in utilities
+cp(
+  c("utilities_shiny.R", "utilities_setup_input.R", "utilities_gearCatches.R"),
+  "shiny"
+)
 
 # copy over www folder
 mkdir("shiny/www")
@@ -27,8 +30,7 @@ cp("shiny_Instructions.Rmd", "shiny/Instructions.Rmd")
 cp("shiny_UsefulLinks.Rmd", "shiny/UsefulLinks.Rmd")
 
 # copy in server and ui scripts
-cp("shiny_server.R", "shiny/server.R")
 cp("shiny_ui.R", "shiny/ui.R")
-cp("utilities_shiny.R", "shiny/utilities.R")
+cp("shiny_server.R", "shiny/server.R")
 
 msg("Created shiny app. To run, use: \n\n\trunApp('shiny')\n\n")
