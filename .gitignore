@@ -39,6 +39,11 @@ rsconnect/
 /bootstrap/data/
 /bootstrap/software/
 /bootstrap/library/
+/data/
+/model/
+/output/
+/report/
+
 
 # excel temp files
 ~[$]*.xlsx

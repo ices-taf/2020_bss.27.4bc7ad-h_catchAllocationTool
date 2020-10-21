@@ -16,14 +16,7 @@ load("model/out.RData")
 gears <- names(input$data)
 
 
-
-##### -------------------------
-### Sort results
-
-## Commercial catches
-
 # Commercial Landings
-
 realisedLandings <- do.call(rbind, lapply(out, "[[", "gearCatches"))[,gears]
 totCommLandings <- sum(realisedLandings)
 
@@ -36,9 +29,9 @@ realisedCommCatch <- realisedLandings + realisedDiscards
 totCommCatch <- sum(realisedCommCatch)
 
 # to make perfect with advice
-if (sum(catches, na.rm = TRUE) > ICESadvComm) {
-  adj <- ICESadvComm / totCommCatch
-  totCommCatch <- ICESadvComm
+if (sum(catches, na.rm = TRUE) > input$ICESadvComm) {
+  adj <- input$ICESadvComm / totCommCatch
+  totCommCatch <- input$ICESadvComm
   totCommLandings <- adj * totCommLandings
   totCommDiscards <- adj * totCommDiscards
   realisedCommCatch <- adj * realisedCommCatch
@@ -52,7 +45,7 @@ realisedCatch["TOTAL", "Recreational"] <- input$recCatch
 totalCatch <- totCommCatch + input$recCatch
 
 
-## Catch at age
+# Catch at age
 catch_n <-
   cbind(
     Reduce("+", lapply(out, "[[", "catch_n")),
@@ -62,7 +55,7 @@ catch_n <-
 ### F values
 ## Total
 totalF <- Reduce("+", lapply(out, "[[", "total_z")) - age_data$M
-Ftotbar <- icesRound(mean(totalF[5:16]) # ages 4-15)
+Ftotbar <- icesRound(mean(totalF[5:16])) # ages 4-15
 
 
 ## Commercial F and Fbar
@@ -87,12 +80,6 @@ Fdisbar <- icesRound(mean(Fdis[5:16]))
 ## Annual recreational catch and F
 # recCatch
 FbarRec <- icesRound(input$FbarRec)
-if (FbarRec < 0.2) {
-  FbarRec <- round(FbarRec, 3)
-} else {
-  FbarRec <- round(FbarRec, 2)
-}
-
 
 # Change ages for Jan 2021
 initPop[, ncol(initPop)] <-

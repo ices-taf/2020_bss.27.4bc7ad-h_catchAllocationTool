@@ -74,7 +74,11 @@ gear_lookup <- read.taf(taf.data.path("gear_lookup", "gear_lookup.csv"))
 # Merge length and landings and add quarter
 # we are ignoring Landing Category (some IND, and some BMS) after merge
 lenland <-
-  full_join(len, land) %>%
+  full_join(
+    len,
+    land,
+    by = c("FlagCountry", "LandingCountry", "Year", "Month", "Metierlvl4", "LandingCategory")
+  ) %>%
   select(
     -LandingCategory
   ) %>%
