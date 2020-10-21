@@ -93,10 +93,7 @@ age_data <-
 age_data$mat <- c(0, 0, 0, 0, 0.089, 0.291, 0.575, 0.798, 0.916, 0.966, 0.986, 0.994, 0.997, 0.999, 0.999, 1, 1)
 
 ## Natural mortality
-# per year
-age_data$Myr <- 0.24
-# per Month
-age_data$M <- age_data$Myr / 12
+age_data$M <- 0.24
 
 # F for recreational
 age_data$F_age_rec_2019 <- c(
