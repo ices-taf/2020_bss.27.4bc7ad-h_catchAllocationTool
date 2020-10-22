@@ -19,8 +19,7 @@ other_data <- list()
 ## ssb at start of advice year
 other_data$ssb_ref <- 11451
 # total catch
-other_data$advice_ref <- 2000
-
+other_data$advice_ref <- list(MSYlow = 1634, MSY = 1946)
 
 ## Discards
 # discard proportions by gear (from last 3 years of French and English data)

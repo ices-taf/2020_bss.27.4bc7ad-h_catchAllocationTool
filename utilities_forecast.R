@@ -261,7 +261,7 @@ forecastTable <- function(forecast_summary, input, other_data) {
   out[, "F Recreational removals"] <- forecast_summary$FbarRec
   out[, "SSB (2022)"] <- round(forecast_summary$ssb2022, 0)
   out[, "% SSB change"] <- round(100 * (forecast_summary$ssb2022 - other_data$ssb_ref) / other_data$ssb_ref, 1)
-  out[, "% Advice change"] <- round(100 * ((forecast_summary$totCommCatch + input$recCatch) - other_data$advice_ref) / other_data$advice_ref, 1)
+  out[, "% Advice change"] <- round(100 * ((forecast_summary$totCommCatch + input$recCatch) - other_data$advice_ref[[input$AdviceType]]) / other_data$advice_ref[[input$AdviceType]], 1)
 
   # 2019 Advice sheet catch scenarios
   AdviceScenarios <- other_data$AdviceScenarios
