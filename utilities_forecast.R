@@ -9,7 +9,6 @@ run_forecast <- function(gear_catches, selectivity_age, input, other_data) {
 
   # the forecast optimisation ---------
   # -----------------------------------
-
   out <- list()
   # Switch for whether there is quota left or not (starts TRUE, changes to FALSE when quota used up.
   # Rest of the months then have zero comm catch)
@@ -18,7 +17,6 @@ run_forecast <- function(gear_catches, selectivity_age, input, other_data) {
 
   # loop over time steps
   for (i in 1:input$TimeStep) {
-    if (input$TimeStep == 12) {
       # check how much of TAC has been taken
       if (quota_left) {
         caught <- 0
@@ -29,15 +27,11 @@ run_forecast <- function(gear_catches, selectivity_age, input, other_data) {
         # if quota is exceeded, scale catches, and set remaining to zero
         if (sum(catches[i, ]) > remaining) {
           catches[i, ] <- catches[i, ] * (remaining / sum(catches[i, ]))
-          if (i != 12) {
-            for (ii in (i + 1):12) {
-              catches[ii, ] <- 0
-            }
-          }
+          if (input$TimeStep == 12 && i < 12) catches[(i + 1):12, ] <- 0
           quota_left <- FALSE
         }
       }
-    }
+
     # Split catches in landings and discards
     discard_prop <- other_data$discard_prop[names(catches)]
     landings_and_discards <-
@@ -177,7 +171,8 @@ summarise_forecast <- function(forecast, input) {
     totCommCatch = totCommCatch,
     totCommLandings = totCommLandings,
     totCommDiscards = totCommDiscards,
-    ssb2022 = ssb2022
+    ssb2022 = ssb2022,
+    gearFTable = gearFTable
   )
 }
 
