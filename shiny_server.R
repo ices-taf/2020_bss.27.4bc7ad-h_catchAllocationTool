@@ -168,7 +168,21 @@ server <- function(input, output) {
 
       forecast_table <- forecastTable(forecast_react$summary, setup_react$setup, other_data)
 
-      DT::datatable(forecast_table, options = list(dom = "t")) %>%
+      DT::datatable(
+        forecast_table,
+        extensions = "Buttons",
+        options =
+          list(
+            dom = "Bti",
+            buttons =
+              list("copy", "print", list(
+                extend = "collection",
+                buttons = c("csv", "excel", "pdf"),
+                text = "Download"
+              )),
+            pageLength = -1
+          )
+        ) %>%
         formatStyle(
           "Basis",
           target = "row",
@@ -182,3 +196,6 @@ server <- function(input, output) {
   output$hide_panel <- eventReactive(input$go, TRUE, ignoreInit = TRUE)
   outputOptions(output, "hide_panel", suspendWhenHidden = FALSE)
 }
+
+
+Sea bass catch allocation tool
