@@ -13,6 +13,22 @@ load("data/globals.RData")
 load("data/assessmemt.RData")
 
 
+# overwrite modelled selectivity -
+selectivity_age_old <-
+  read.taf(taf.data.path("other", "selectivity_age_16+.csv")) %>%
+  mutate(
+    gear = gsub("_", " ", gear)
+  ) %>%
+  pivot_wider(names_from = gear, values_from = Selectivity)
+
+#selectivity_age_new <- read.taf("data/gear_selectivity_age.csv")
+# selectivity_age_old - selectivity_age_new
+
+write.taf(selectivity_age_old, file = "data/gear_selectivity_age.csv")
+
+
+
+
 # build up a data.frame for the forecast
 age_data <- data.frame(Age = 0:30)
 
@@ -241,8 +257,6 @@ as.data.frame(round(age_data, 3))
 
 # maturity
 age_data$mat <- c(0, 0, 0, 0, 0.089, 0.291, 0.575, 0.798, 0.916, 0.966, 0.986, 0.994, 0.997, 0.999, 0.999, 1, 1)
-
-
 
 
 # Z at age from the ICES advice forecasts
