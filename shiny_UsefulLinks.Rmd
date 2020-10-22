@@ -4,22 +4,27 @@ output: html_document
 ---
 
 
-### **Links relevant for sea bass (Dicentrarchus labrax) in divisions 4.b–c, 7.a, and 7.d–h (central and southern North Sea, Irish Sea, English Channel, Bristol Channel, and Celtic Sea)**
+### **Links relevant for sea bass (Dicentrarchus labrax) in divisions 4.b–c, 7.a, and 7.d–h (central and southern North Sea, Irish Sea, English Channel, Bristol Channel, and Celtic Sea)**  
 
-<br>
+<br>  
 
-#### [ICES advice on fishing opportunities for 2019 and 2020](http://ices.dk/sites/pub/Publication%20Reports/Advice/2019/2019/bss.27.4bc7ad-h.pdf)
-
-
-#### [Report section for sea bass of the 2019 Working Group for the Celtic Seas Ecoregion (WGCSE) 2019](http://www.ices.dk/sites/pub/Publication%20Reports/Expert%20Group%20Report/Fisheries%20Resources%20Steering%20Group/2019/WGCSE/32_Seabass_4bc7d_h_2019.pdf)
+#### [ICES advice on fishing opportunities for 2021](http://ices.dk/sites/pub/Publication%20Reports/Advice/2020/2020/bss.27.4bc7ad-h.pdf)  
 
 
-#### [Stock annex](http://www.ices.dk/sites/pub/Publication%20Reports/Stock%20Annexes/2018/bss.27.4bc7d%E2%80%93h_SA.pdf)
+#### [Report section for sea bass of the 2020 Working Group for the Celtic Seas Ecoregion (WGCSE) 2020](https://www.ices.dk/sites/pub/Publication%20Reports/Expert%20Group%20Report/Fisheries%20Resources%20Steering%20Group/2020/WGCSE/31_Section_29_Seabass_4bc7d_h_2020.pdf)  
 
 
-#### [WGCSE](https://www.ices.dk/community/groups/Pages/WGCSE.aspx)
+#### [Stock annex](https://www.ices.dk/sites/pub/Publication%20Reports/Stock%20Annexes/2020/bss-47_SA.pdf)  
 
 
-#### [European Commission sea bass webpage](https://ec.europa.eu/fisheries/cfp/fishing_rules/sea-bass_en)
+#### [WGCSE](https://www.ices.dk/community/groups/Pages/WGCSE.aspx)  
 
-<br>
+
+#### [European Commission sea bass webpage](https://ec.europa.eu/fisheries/cfp/fishing_rules/sea-bass_en)  
+
+
+#### [Brief analysis of the data received in response to the 2020 data call on landings by vessel and métier for sea bass (Dicentrarchus labrax) in divisions 4.b–c, 7.a, and 7.d–h](https://community.ices.dk/Advice/Advice2020/TechnicalServices/Draft_advice/Sea%20bass%20tool_Brief%20analysis%20of%20data%20call%20data.docx)  
+
+
+
+<br>  
