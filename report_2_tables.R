@@ -1,5 +1,6 @@
 
 library(icesTAF)
+library(icesAdvice)
 
 mkdir("report")
 

@@ -3,6 +3,8 @@
 library(ggplot2)
 library(sicegar) # forselection curves
 library(r4ss) # for rectreational selex
+library(dplyr)
+library(tidyr)
 
 # year
 load("data/globals.RData")

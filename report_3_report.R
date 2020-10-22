@@ -3,6 +3,7 @@
 library(icesTAF)
 library(rmarkdown)
 
+
 mkdir("report")
 
 render(

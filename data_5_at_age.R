@@ -46,7 +46,7 @@ age_data <-
 age_data <-
   assessmt$ageselex %>%
   filter(
-    Yr == globals$yr_idx[2] &
+    Yr == globals$current_year &
       Fleet == defs$fleet_ID[defs$fleet_names == "French"] &
       Factor == "bodywt"
   ) %>%
@@ -89,8 +89,8 @@ natage[1] <-
   gm()
 
 # 2020 age 1 replaced by SS3 survivor estimate at age 1, 2020 * GM / SS3 estimate of age 0, 2019
-natage[2] <- natage[2] * natage_0 / filter(assessmt$natage, Yr == 2019 & `Beg/Mid` == "B")[["0"]]
-natage[3] <- natage[3] * natage_0 / filter(assessmt$natage, Yr == 2018 & `Beg/Mid` == "B")[["0"]]
+natage[2] <- natage[2] * natage[1] / filter(assessmt$natage, Yr == 2019 & `Beg/Mid` == "B")[["0"]]
+natage[3] <- natage[3] * natage[1] / filter(assessmt$natage, Yr == 2018 & `Beg/Mid` == "B")[["0"]]
 
 age_data$N <- natage
 

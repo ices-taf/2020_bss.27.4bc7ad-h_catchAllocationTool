@@ -6,8 +6,8 @@ library(glue)
 mkdir("model")
 
 # Additional functions
-source("./utilities_setup_input.R")
-source("./utilities_shiny.R")
+source("utilities_setup_input.R")
+source("utilities_shiny.R")
 
 # Read in required data
 age_data <- read.taf("data/age_data.csv")
@@ -25,10 +25,8 @@ setup_react <-
   )
 
 # enter some values for catches in tones by vessel
-setup_react$data <- input$setup$data
+setup_react$data <- setup_react$setup$data
 setup_react$data[] <- 0.05
 setup_react$data <- calc_total(setup_react$data)
-
-# end of inputs
 
 save(setup_react, file = "model/setup_react.RData")
