@@ -5,6 +5,9 @@ require(markdown)
 require(dplyr)
 require(ggplot2)
 require(plotly)
+require(icesTAF)
+require(tidyr)
+require(glue)
 
 side_width <- 5
 
@@ -41,7 +44,7 @@ allocations_inputpanel <-
 
     selectInput(
       "OpenSeason",
-      label = div(style = "font-size:13px", "Duration of open season"),
+      label = shiny::div(style = "font-size:13px", "Duration of open season"),
       choices = c(
         "0 months" = 1,
         "3 months" = 2,
@@ -57,7 +60,7 @@ allocations_inputpanel <-
 
     selectInput(
       "BagLimit",
-      label = div(style = "font-size:13px", "Bag limit size"),
+      label = shiny::div(style = "font-size:13px", "Bag limit size"),
       choices = c(
         "1 Fish" = 1,
         "2 Fish" = 2,
@@ -72,7 +75,7 @@ allocations_inputpanel <-
     # removing for now - needs development
     #selectInput(
     #  "Comm_v_Rec",
-    #  label = div(style = "font-size:13px", "Start allocations with:"),
+    #  label = shiny::div(style = "font-size:13px", "Start allocations with:"),
     #  choices = c(
     #    "Recreational" = 1,
     #    "Commercial" = 2
@@ -145,7 +148,7 @@ ui <-
 
     # navbar title
     title =
-      div(img(src = 'Sea_bass_Negative_LOGO.png',
+      shiny::div(img(src = 'Sea_bass_Negative_LOGO.png',
               style = "margin-top: -14px; padding-right:10px;padding-bottom:10px",
               height = 60)),
 
