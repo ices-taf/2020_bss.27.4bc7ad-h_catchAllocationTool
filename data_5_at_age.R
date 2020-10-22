@@ -70,6 +70,138 @@ age_data <-
   right_join(age_data, by = "Age")
 
 
+## Natural mortality
+age_data <-
+  assessmt$M_at_age %>%
+  filter(Year == 2019) %>%
+  select("0":"30") %>%
+  pivot_longer(everything(), names_to = "Age", values_to = "M") %>%
+  mutate(
+    M = ifelse(is.na(M), mean(M, na.rm = TRUE), M),
+    Age = as.numeric(Age)
+  ) %>%
+  right_join(age_data, by = "Age")
+
+
+
+# F at age
+fatage <-
+  assessmt$Z_at_age %>% filter(Year %in% 2017:2019) %>% select("0":"30") -
+    assessmt$M_at_age %>% filter(Year %in% 2017:2019) %>% select("0":"30")
+
+fatage <- unname(unlist(colMeans(fatage)))
+
+# catch at age
+catage <- t(assessmt$catage[assessmt$catage$Yr == 2019, paste(0:30)])
+
+# F for recreational
+age_data$F_age_rec_2020 <- catage[, 6] / rowSums(catage) * fatage
+age_data$F_age_rec_2020 <- ifelse(is.nan(age_data$F_age_rec_2020), 0, age_data$F_age_rec_2020)
+
+
+# F at age in discards
+age_data <-
+  assessmt$ageselex %>%
+  filter(
+    Yr == globals$current_year &
+      Fleet %in% defs$fleet_ID[defs$fleet_names %in% c("UKOTB_Nets", "French")] &
+      Factor %in% c("sel*ret_nums", "dead_nums")
+  ) %>%
+  select(
+    Factor, Fleet, "0":"30"
+  ) %>%
+  pivot_longer(
+    "0":"30",
+    names_to = "Age", values_to = "sel"
+  ) %>%
+    pivot_wider(
+      names_from = Factor,
+      values_from = sel
+    ) %>%
+  mutate(
+    Age = as.numeric(Age),
+    ret_frac = ifelse(dead_nums == 0, 0, `sel*ret_nums` / dead_nums)
+  ) %>%
+  select(Fleet, Age, ret_frac) %>%
+  mutate(
+    Ffleet = c(catage[, 1], catage[, 4]) / rowSums(catage) * fatage
+  ) %>%
+  group_by(Age) %>%
+  summarise(
+    F_age_disc_2020 = sum(Ffleet * (1 - ret_frac))
+  ) %>%
+  mutate(
+    F_age_disc_2020 = ifelse(is.nan(F_age_disc_2020), 0, F_age_disc_2020),
+    Discard_Sel = F_age_disc_2020 / sum(F_age_disc_2020, na.rm = TRUE)
+  ) %>%
+  right_join(age_data, by = "Age")
+
+# F at age in landinds
+age_data <-
+  assessmt$ageselex %>%
+  filter(
+    Yr == globals$current_year &
+      Fleet %in% defs$fleet_ID[defs$fleet_names %in% c("UKOTB_Nets", "Lines", "UKMWT", "French", "Other")] &
+      Factor %in% c("sel*ret_nums", "dead_nums")
+  ) %>%
+  select(
+    Factor, Fleet, "0":"30"
+  ) %>%
+  pivot_longer(
+    "0":"30",
+    names_to = "Age", values_to = "sel"
+  ) %>%
+  pivot_wider(
+    names_from = Factor,
+    values_from = sel
+  ) %>%
+  mutate(
+    Age = as.numeric(Age),
+    ret_frac = ifelse(dead_nums == 0, 0, `sel*ret_nums` / dead_nums)
+  ) %>%
+  select(Fleet, Age, ret_frac) %>%
+  mutate(
+    ret_frac = ifelse(Fleet %in% c(1, 4), ret_frac, 1),
+    Ffleet = c(catage[, 1], catage[, 2], catage[, 3], catage[, 4], catage[, 5]) / rowSums(catage) * fatage
+  ) %>%
+  group_by(Age) %>%
+  summarise(
+    F_age_land_2020 = sum(Ffleet * ret_frac)
+  ) %>%
+  mutate(
+    F_age_land_2020 = ifelse(is.nan(F_age_land_2020), 0, F_age_land_2020)
+  ) %>%
+  right_join(age_data, by = "Age")
+
+recF_multiplier <- 1.428
+
+age_data <-
+  age_data %>%
+  mutate(
+    Z_age_2020 = M + F_age_land_2020 + F_age_disc_2020 + F_age_rec_2020 * recF_multiplier
+  )
+
+
+
+# F of recreational fishery in 2012
+fatage <-
+  assessmt$Z_at_age %>%
+  filter(Year %in% 2012) %>%
+  select("0":"30") -
+  assessmt$M_at_age %>%
+  filter(Year %in% 2012) %>%
+  select("0":"30")
+fatage <- unname(unlist(colMeans(fatage)))
+
+# catch at age
+catage <- t(assessmt$catage[assessmt$catage$Yr == 2012, paste(0:30)])
+
+# F for recreational
+age_data$F_age_rec_2012 <- catage[, 6] / rowSums(catage) * fatage
+age_data$F_age_rec_2012 <- ifelse(is.nan(age_data$F_age_rec_2012), 0, age_data$F_age_rec_2012)
+
+
+
 
 # population at age in current year
 
@@ -92,74 +224,25 @@ natage[1] <-
 natage[2] <- natage[2] * natage[1] / filter(assessmt$natage, Yr == 2019 & `Beg/Mid` == "B")[["0"]]
 natage[3] <- natage[3] * natage[1] / filter(assessmt$natage, Yr == 2018 & `Beg/Mid` == "B")[["0"]]
 
-age_data$N <- natage
-
-## Natural mortality
-age_data <-
-  assessmt$M_at_age %>%
-  filter(Year == 2019) %>%
-  select("0":"30") %>%
-  pivot_longer(everything(), names_to = "Age", values_to = "M") %>%
-  mutate(
-    M = ifelse(is.na(M), mean(M, na.rm = TRUE), M),
-    Age = as.numeric(Age)
-  ) %>%
-  right_join(age_data, by = "Age")
-
-
-# F at age
-fatage <-
-  assessmt$Z_at_age %>% filter(Year %in% 2017:2019) %>% select("0":"30") -
-    assessmt$M_at_age %>% filter(Year %in% 2017:2019) %>% select("0":"30")
-
-fatage <- unname(unlist(colMeans(fatage)))
-
-# catch at age
-catage <- t(assessmt$catage[assessmt$catage$Yr == 2019, paste(0:30)])
-
-# F for recreational
-age_data$F_age_rec_2019 <- catage[, 6] / rowSums(catage) * fatage
-age_data$F_age_rec_2019 <- ifelse(is.nan(age_data$F_age_rec_2019), 0, age_data$F_age_rec_2019)
-
-# F of recreational fishery in 2012
-fatage <-
-  assessmt$Z_at_age %>%
-  filter(Year %in% 2012) %>%
-  select("0":"30") -
-  assessmt$M_at_age %>%
-  filter(Year %in% 2012) %>%
-  select("0":"30")
-fatage <- unname(unlist(colMeans(fatage)))
-
-# catch at age
-catage <- t(assessmt$catage[assessmt$catage$Yr == 2012, paste(0:30)])
-
-# F for recreational
-age_data$F_age_rec_2012 <- catage[, 6] / rowSums(catage) * fatage
-age_data$F_age_rec_2012 <- ifelse(is.nan(age_data$F_age_rec_2012), 0, age_data$F_age_rec_2012)
-
-
-
-
+# roll forward to 2021!
+age_data$N_2020 <- natage
+age_data$N <- c(natage[1], natage * exp(-age_data$Z_age_2020))[-(nrow(age_data) + 1)]
 
 
 # process plus group
-age_data$stkwt[age_data$Age == 16] <- sum((age_data$N * age_data$stkwt)[age_data$Age >= 16]) / sum(age_data$N[age_data$Age >= 16])
+age_data$stkwt[age_data$Age == 16] <- sum((age_data$N_2020 * age_data$stkwt)[age_data$Age >= 16]) / sum(age_data$N_2020[age_data$Age >= 16])
 age_data$N[age_data$Age == 16] <- sum(age_data$N[age_data$Age >= 16])
+age_data$N_2020[age_data$Age == 16] <- sum(age_data$N_2020[age_data$Age >= 16])
 
 age_data <- filter(age_data, Age <= 16)
+
+as.data.frame(round(age_data))
+as.data.frame(round(age_data, 3))
 
 # maturity
 age_data$mat <- c(0, 0, 0, 0, 0.089, 0.291, 0.575, 0.798, 0.916, 0.966, 0.986, 0.994, 0.997, 0.999, 0.999, 1, 1)
 
 
-# Use advice forecast discard F selectivity for all fleet (quantity of disards by fleet from discard proportion estimates, below)
-age_data <-
-  left_join(
-    age_data,
-    read.csv("bootstrap/data/other/discard_selectivity.csv"),
-    by = "Age"
-  )
 
 
 # Z at age from the ICES advice forecasts
