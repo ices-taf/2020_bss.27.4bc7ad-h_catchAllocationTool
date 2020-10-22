@@ -177,11 +177,11 @@ server <- function(input, output) {
         extensions = "Buttons",
         options =
           list(
-            dom = "Bti",
+            dom = "Bt",
             buttons =
               list("copy", "print", list(
                 extend = "collection",
-                buttons = c("csv", "excel", "pdf"),
+                buttons = c("csv", "excel"),
                 text = "Download"
               )),
             pageLength = -1
