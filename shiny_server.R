@@ -51,7 +51,6 @@ server <- function(input, output) {
         )
       setup_react$setup <- setup
 
-
       # try set initial values
       if (!is.null(old_data)) {
         data <- setup_react$data
@@ -137,7 +136,9 @@ server <- function(input, output) {
 
       forecast_react$forecast <- forecast
 
-      forecast_react$summary <- summarise_forecast(forecast, setup_react$setup)
+      summary <- summarise_forecast(forecast, setup_react$setup)
+
+      forecast_react$summary <- summary
     }
   )
 
