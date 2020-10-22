@@ -130,7 +130,7 @@ allocations_resultspanel_wide <-
     column(12,
       conditionalPanel("output.hide_panel",
         wellPanel(
-          h5(helpText("Table 3: Forecast scenarios. Comparison between the simulated scenario (highlighted row) and the basis of ICES advice for 2020. Weights are in tonnes. Note that the '% Advice change' value is relative to the advice for the corresponding scenario for 2020: MSY lower (1634 tonnes) and MSY upper (1946 tonnes).")),
+          h5(helpText("Table 3: Forecast scenarios. Comparison between the simulated scenario (highlighted row) and the basis of ICES advice for 2020. Weights are in tonnes. Note that the '% Advice change' value is relative to the advice for the corresponding scenario for 2020: FMSY (1946 tonnes) and FMSY lower (1634 tonnes).")),
           br(),
           DT::dataTableOutput("forecastTable")
         )
