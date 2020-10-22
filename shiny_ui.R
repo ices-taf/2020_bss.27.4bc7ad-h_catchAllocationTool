@@ -4,6 +4,7 @@ require(shinythemes)
 require(markdown)
 require(dplyr)
 require(ggplot2)
+require(plotly)
 
 side_width <- 5
 
@@ -68,16 +69,17 @@ allocations_inputpanel <-
       selected = 1
     ),
 
-    selectInput(
-      "Comm_v_Rec", #DM: need better text
-      label = div(style = "font-size:13px", "Start allocations with:"),
-      choices = c(
-        "Recreational" = 1,
-        "Commercial" = 2
-      ),
-      width = "40%",
-      selected = 1
-    ),
+    # removing for now - needs development
+    #selectInput(
+    #  "Comm_v_Rec",
+    #  label = div(style = "font-size:13px", "Start allocations with:"),
+    #  choices = c(
+    #    "Recreational" = 1,
+    #    "Commercial" = 2
+    #  ),
+    #  width = "40%",
+    #  selected = 1
+    #),
 
     h5(textOutput("RecF")),
 
@@ -126,7 +128,7 @@ allocations_resultspanel_wide <-
     column(12,
       conditionalPanel("output.hide_panel",
         wellPanel(
-          h5(helpText("Table 3: Forecast scenarios. Comparison between the simulated scenario (highlighted row) and the basis of ICES advice for 2020.")),
+          h5(helpText("Table 3: Forecast scenarios. Comparison between the simulated scenario (highlighted row) and the basis of ICES advice for 2020. Note that the advice % change value is relative to the advice value last year, MSY lower (1634 tonnes) and MSY upper (1946 tonnes), is relative to the corresponding scenario.")),
           br(),
           DT::dataTableOutput("forecastTable")
         )
@@ -147,10 +149,10 @@ ui <-
               style = "margin-top: -14px; padding-right:10px;padding-bottom:10px",
               height = 60)),
 
-  #tabPanel(
-  #  "Instructions",
-  #  includeMarkdown("Instructions.Rmd")
-  #),
+  tabPanel(
+    "Instructions",
+    includeMarkdown("Instructions.Rmd")
+  ),
 
   tabPanel(
     "Allocations",

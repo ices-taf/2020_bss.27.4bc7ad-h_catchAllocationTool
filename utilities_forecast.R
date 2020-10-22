@@ -251,7 +251,7 @@ forecastTable <- function(forecast_summary, input, other_data) {
     input$AdviceType,
     c(
       "Basis", "Total Catch", "Commercial Landings", "Commercial discards", "Recreational removals", "Total F", "F Commercial landings",
-      "F Commercial discards", "F Recreational removals", "SSB (2021)", "% SSB change", "% Advice change"
+      "F Commercial discards", "F Recreational removals", "SSB (2022)", "% SSB change", "% Advice change"
     )
   ))
 
@@ -264,9 +264,9 @@ forecastTable <- function(forecast_summary, input, other_data) {
   out[, "F Commercial landings"] <- forecast_summary$Flandbar
   out[, "F Commercial discards"] <- forecast_summary$Fdisbar
   out[, "F Recreational removals"] <- forecast_summary$FbarRec
-  out[, "SSB (2021)"] <- round(forecast_summary$ssb2021, 0)
-  out[, "% SSB change"] <- round(100 * (forecast_summary$ssb2021 - 11413) / 11413, 1) # DM: change from fixed value
-  out[, "% Advice change"] <- round(100 * ((forecast_summary$totCommCatch + input$recCatch) - 1806) / 1806, 1) # DM: change from fixed value
+  out[, "SSB (2022)"] <- round(forecast_summary$ssb2021, 0)
+  out[, "% SSB change"] <- round(100 * (forecast_summary$ssb2021 - other_data$ssb_ref) / other_data$ssb_ref, 1)
+  out[, "% Advice change"] <- round(100 * ((forecast_summary$totCommCatch + input$recCatch) - other_data$advice_ref) / other_data$advice_ref, 1)
 
   if (FALSE) {
     # some kind of fixed value here

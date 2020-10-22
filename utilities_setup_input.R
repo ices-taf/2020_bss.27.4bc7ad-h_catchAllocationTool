@@ -43,7 +43,7 @@ setup_input <- function(TimeStep = c("1", "12"), AdviceType = "MSY",
   # uses selected multiplier and 2012+2019 F@A and Fbar to estimate 2020 F@A
   age_data$f_age_rec_2020 <-
     RecF * source_data$Fbar_rec_2012 *
-      age_data$F_age_rec_2019 / mean(age_data$F_age_rec_2019[5:16])
+      age_data$F_age_rec_2020 / mean(age_data$F_age_rec_2020[5:16])
 
   # Mean F for recreational ages 4-15
   FbarRec <- mean(age_data$f_age_rec_2020[5:16])

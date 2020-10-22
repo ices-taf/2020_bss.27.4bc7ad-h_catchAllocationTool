@@ -7,6 +7,9 @@ require(rhandsontable)
 require(markdown)
 require(shinythemes)
 require(DT)
+require(glue)
+require(icesAdvice)
+require(tidyr)
 
 # load base data
 age_data <- read.taf("data/age_data.csv")
@@ -32,7 +35,6 @@ server <- function(input, output) {
       input$TimeStep
       input$OpenSeason
       input$BagLimit
-      input$Comm_v_Rec
     },
     {
       # register if timestep has changes
@@ -44,7 +46,7 @@ server <- function(input, output) {
         setup_input(
           AdviceType = input$AdviceType, TimeStep = input$TimeStep,
           OpenSeason = input$OpenSeason, BagLimit = input$BagLimit,
-          Comm_v_Rec = input$Comm_v_Rec,
+          Comm_v_Rec = "1", # hard code this for now - input$Comm_v_Rec,
           age_data = age_data, source_data = other_data
         )
       setup_react$setup <- setup
@@ -105,7 +107,8 @@ server <- function(input, output) {
   ## Line that calculates the remaining of catches after the recreational options
   output$RemQuota <-
     renderText({
-      leftOver <- round(setup_react$setup$ICESadvComm - sum(calc_tonnes(setup_react$data, setup_react$setup$noVessels), na.rm = TRUE), 0)
+      tonnes <- calc_tonnes(setup_react$data, setup_react$setup$noVessels)
+      leftOver <- round(setup_react$setup$ICESadvComm - sum(tonnes["TOTAL",], na.rm = TRUE), 0)
       remaining_quota(leftOver, setup_react$setup$Comm_v_Rec, setup_react$setup$recCatch)
   })
 
