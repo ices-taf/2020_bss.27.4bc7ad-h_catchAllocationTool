@@ -162,8 +162,8 @@ summarise_forecast <- function(forecast, input) {
   # recCatch
   FbarRec <- icesRound(input$FbarRec)
 
-  # SSB 2021
-  ssb2021 <- sum(forecast$initPop[, ncol(forecast$initPop)] * input$age_data$mat * input$age_data$stkwt)
+  # SSB 2022
+  ssb2022 <- sum(forecast$initPop[, ncol(forecast$initPop)] * input$age_data$mat * input$age_data$stkwt)
 
   list(
     realisedLandings = realisedLandings,
@@ -177,7 +177,7 @@ summarise_forecast <- function(forecast, input) {
     totCommCatch = totCommCatch,
     totCommLandings = totCommLandings,
     totCommDiscards = totCommDiscards,
-    ssb2021 = ssb2021
+    ssb2022 = ssb2022
   )
 }
 
@@ -264,18 +264,9 @@ forecastTable <- function(forecast_summary, input, other_data) {
   out[, "F Commercial landings"] <- forecast_summary$Flandbar
   out[, "F Commercial discards"] <- forecast_summary$Fdisbar
   out[, "F Recreational removals"] <- forecast_summary$FbarRec
-  out[, "SSB (2022)"] <- round(forecast_summary$ssb2021, 0)
-  out[, "% SSB change"] <- round(100 * (forecast_summary$ssb2021 - other_data$ssb_ref) / other_data$ssb_ref, 1)
+  out[, "SSB (2022)"] <- round(forecast_summary$ssb2022, 0)
+  out[, "% SSB change"] <- round(100 * (forecast_summary$ssb2022 - other_data$ssb_ref) / other_data$ssb_ref, 1)
   out[, "% Advice change"] <- round(100 * ((forecast_summary$totCommCatch + input$recCatch) - other_data$advice_ref) / other_data$advice_ref, 1)
-
-  if (FALSE) {
-    # some kind of fixed value here
-    if (input$ICESadvOpt == "MSY") {
-      out[, "% Advice change"] <- 7.8
-    } else {
-      out[, "% Advice change"] <- -9.5
-    }
-  }
 
   # 2019 Advice sheet catch scenarios
   AdviceScenarios <- other_data$AdviceScenarios
