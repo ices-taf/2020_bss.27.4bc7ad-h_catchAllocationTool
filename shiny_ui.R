@@ -55,7 +55,7 @@ allocations_inputpanel <-
         "12 months" = 7
       ),
       width = "40%",
-      selected = 4
+      selected = 5
     ),
 
     selectInput(
@@ -69,7 +69,7 @@ allocations_inputpanel <-
         "5+ Fish" = 5
       ),
       width = "40%",
-      selected = 1
+      selected = 2
     ),
 
     # removing for now - needs development
@@ -112,13 +112,12 @@ allocations_resultspanel <-
         h5(helpText("Figure 1: Simulated catch-at-age, by gear. The dashed line (---) indicates the predicted catch-at-age in the ICES forecast."))
       ),
       wellPanel(
-        h5(helpText("Table 1: Simulated catch allocations. Catch allocations may be less than those entered since total
-      catch is limited to the advice level chosen.")),
+        h5(helpText("Table 1: Simulated catch allocations by vessel. Catch allocations may be less than those entered since total catch is limited to the advice level chosen. Weights are in tonnes.")),
         br(),
         tableOutput("vclsGearTable")
       ),
       wellPanel(
-        h5(helpText("Table 2: Simulated catch and F by gear, including recreational catches.")),
+        h5(helpText("Table 2: Simulated catch and F by gear raised to fleet-level, including recreational catches. Weights are in tonnes.")),
         br(),
         tableOutput("CatchGearTable")
       )
