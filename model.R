@@ -7,5 +7,5 @@ library(icesTAF)
 
 mkdir("model")
 
-sourceTAF("model_input.R")
-sourceTAF("model_forecast.R")
+sourceTAF("model_1_input.R")
+sourceTAF("model_2_forecast.R")

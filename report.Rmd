@@ -1,0 +1,90 @@
+---
+title: Sea bass catch allocation tool report
+output: pdf_document
+params:
+  setup_react: null
+  forecast: null
+  summary: null
+  other_data: null
+---
+
+```{r setup, include = FALSE}
+library(knitr)
+opts_chunk$set(
+  echo = FALSE
+)
+options(knitr.table.format = "latex")
+
+source("utilities_forecast.R")
+source("utilities_shiny.R")
+```
+
+## setup
+
+### 2020 Catch Advice
+
+
+```{r results = "asis"}
+ICESadvice(params$setup_react$setup$ICESadv)
+```
+
+
+### Time Step
+
+
+### Recreational Management measures
+
+
+```{r results = "asis"}
+recreationalF(params$setup_react$setup$recCatch, params$setup_react$setup$FbarRec)
+```
+
+```{r results = "asis"}
+ICESadviceCommercial(params$setup_react$setup$Comm_v_Rec, params$setup_react$setup$ICESadvComm)
+```
+
+
+
+### Catch Allocations (in tonnes per vessel)
+
+```{r}
+kable(
+  setup_react$data,
+  row.names = FALSE
+)
+```
+
+```{r results = "asis"}
+leftOver <- round(params$setup_react$setup$ICESadvComm - sum(calc_tonnes(params$setup_react$setup$data, params$setup_react$setup$noVessels), na.rm = TRUE), 0)
+remaining_quota(leftOver, params$setup_react$setup$Comm_v_Rec, params$setup_react$setup$recCatch)
+```
+
+
+### simulation results
+
+#### catch plot
+
+```{r}
+catch_n_plot(params$forecast, params$setup_react$setup)
+```
+
+```{r}
+kable(
+  vclsGearTable(params$summary, params$setup_react$setup),
+  row.names = FALSE
+)
+```
+
+```{r}
+kable(
+  catchGearTable(params$summary),
+  row.names = FALSE
+)
+```
+
+```{r}
+kable(
+  forecastTable(params$summary, params$setup_react$setup, params$other_data),
+  row.names = FALSE
+)
+```

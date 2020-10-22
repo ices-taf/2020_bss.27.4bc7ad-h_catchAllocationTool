@@ -7,6 +7,6 @@ library(icesTAF)
 
 mkdir("report")
 
-sourceTAF("report_plots.R")
-sourceTAF("report_tables.R")
-sourceTAF("report_report.R")
+sourceTAF("report_1_plots.R")
+sourceTAF("report_2_tables.R")
+sourceTAF("report_3_report.R")

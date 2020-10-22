@@ -23,9 +23,7 @@ run_forecast <- function(gear_catches, selectivity_age, input, other_data) {
       if (quota_left) {
         caught <- 0
         if (i > 1) {
-          for (ii in 1:(i - 1)) {
-            caught <- caught + sum(out[[ii]]$gear_catches)
-          }
+          caught <- sum(Reduce("+", lapply(out[1:(i - 1)], "[[", "gearCatches")))
         }
         remaining <- input$ICESadvComm - caught
         # if quota is exceeded, scale catches, and set remaining to zero
