@@ -4,113 +4,113 @@ output: html_document
 ---
 
 
-## Introductory notes  
+## Introductory notes
 ***
 
 
-#### The sea bass catch allocation tool was developed to be used **exclusively** for sea bass (*Dicentrarchus labrax*) in divisions 4.b–c, 7.a, and 7.d–h (central and southern North Sea, Irish Sea, English Channel, Bristol Channel, and Celtic Sea) in 2020.  
+The sea bass catch allocation tool was developed to be used **exclusively** for sea bass (*Dicentrarchus labrax*) in divisions 4.b–c, 7.a, and 7.d–h (central and southern North Sea, Irish Sea, English Channel, Bristol Channel, and Celtic Sea) in 2020.
 
-<br> 
-
-#### The assumptions used in the tool are closely linked to the assessment of this stock (ICES,2020a) and any attempt to use it for other stocks will not produce sensible results.  
-
-<br> 
-
-#### The sea bass catch allocation tool was developed with the intent to aid managers and stakeholders to test multiple catch allocation schemes by gear and different regulations for recreational catches, using the ICES catch advice (ICES, 2020c) as a maximum.  
-
-<br> 
-
-#### Although this tool is designed to be in line with the assumptions used in the sea bass advice there are instances where it deviates from them. The tool can be used to allocate monthly options, while the assessment is run an annual time step. Also, depending on the gear options selected, the overall commercial catch- at-age may differ from that assumed in the ICES forecast.  
-
-<br>  
 <br>
 
-## Instructions  
+The assumptions used in the tool are closely linked to the assessment of this stock (ICES,2020a) and any attempt to use it for other stocks will not produce sensible results.
+
+<br>
+
+The sea bass catch allocation tool was developed with the intent to aid managers and stakeholders to test multiple catch allocation schemes by gear and different regulations for recreational catches, using the ICES catch advice (ICES, 2020c) as a maximum.
+
+<br>
+
+Although this tool is designed to be in line with the assumptions used in the sea bass advice there are instances where it deviates from them. The tool can be used to allocate monthly options, while the assessment is run an annual time step. Also, depending on the gear options selected, the overall commercial catch- at-age may differ from that assumed in the ICES forecast.
+
+<br>
+<br>
+
+## Instructions
 ***
 
-### **Inputs:**  
+### **Inputs:**
 
 
 
-#### 1. Select catch advice. Two options are available:
-####    1. EU MAP F<sub>MSY</sub> × SSB<sub>2020</sub> / MSY B<sub>trigger</sub>
-####    1. EU MAP F<sub>MSY</sub> <sub>lower</sub> × SSB<sub>2020</sub> / MSY B<sub>trigger</sub>
-#### 2. Select the time step to be used in the allocation simulation.
-#### 3. Select the management options to be applied to the recreational component (default options are the current management measures in place).
-#### 4. Input vessel catch allocation by gears in the table (in tonnes per vessel).
-#### 5. Click `Run simulation` to test the allocations.
+1. Select catch advice. Two options are available:
+  1. EU MAP F<sub>MSY</sub> × SSB<sub>2020</sub> / MSY B<sub>trigger</sub>
+  1. EU MAP F<sub>MSY</sub> <sub>lower</sub> × SSB<sub>2020</sub> / MSY B<sub>trigger</sub>
+2. Select the time step to be used in the allocation simulation.
+3. Select the management options to be applied to the recreational component (default options are the current management measures in place).
+4. Input vessel catch allocation by gears in the table (in tonnes per vessel).
+5. Click `Run simulation` to test the allocations.
 
-<br> 
+<br>
 
-#### Every time a change is made to any of the inputs the simulation needs to be run again by pressing `Run Simulation`  
+Every time a change is made to any of the inputs the simulation needs to be run again by pressing `Run Simulation`
 
-<br> 
+<br>
 
-### **Outputs:** 
+### **Outputs:**
 
 
-#### On the top right is shown a plot of catch-at-age in thousands by gear. The black dashed line is the catch-at-age for the advice given in the main ICES advice for this stock.  
+On the top right is shown a plot of catch-at-age in thousands by gear. The black dashed line is the catch-at-age for the advice given in the main ICES advice for this stock.
 
-<br> 
+<br>
 
-#### Below the plot, a table is shown with the results of the simulation. Since the catch allocations are not allowed to exceed the ICES advice (ICES, 2020c), final catch allocations may be less than those initially entered. For monthly simulations, the initial catch allocations are taken each month until the advice value is reached. For subsequent months the catch is set to zero.  
+Below the plot, a table is shown with the results of the simulation. Since the catch allocations are not allowed to exceed the ICES advice (ICES, 2020c), final catch allocations may be less than those initially entered. For monthly simulations, the initial catch allocations are taken each month until the advice value is reached. For subsequent months the catch is set to zero.
 
-<br> 
+<br>
 
-#### The final table shows the summary of the forecast, including the impact in the SSB and the change in advice. The table compares the simulated catch allocations with the forecast scenarios from the ICES advice.  
+The final table shows the summary of the forecast, including the impact in the SSB and the change in advice. The table compares the simulated catch allocations with the forecast scenarios from the ICES advice.
 
-<br> 
-<br> 
+<br>
+<br>
 
 
 ### **New features:**
 
-#### -	Table added indicating the number of vessels by gear used in the tool to raise the catch allocations. A document (ICES, 2020b) with an analysis on how the vessels numbers were derived is available in the useful links tab.
-#### -	Improved input table functionality:
- - It is now possible to copy and paste directly to and from excel
- - If the user decides to change allocations by year to allocations by month, the yearly allocations entered will be split throughout the months, making it easier to fill in the monthly table.
- 
-#### - Table 3 can be copied, printed or downloaded.
-#### - Figure 1 is now interactive, among other functionalities, it is now possible to hover the mouse pointer over the figure to check values, either one at the time or for all the gears at the same time. 
-<br> 
-<br> 
+-	Table added indicating the number of vessels by gear used in the tool to raise the catch allocations. A document (ICES, 2020b) with an analysis on how the vessels numbers were derived is available in the useful links tab.
+-	Improved input table functionality:
+  - It is now possible to copy and paste directly to and from excel
+  - If the user decides to change allocations by year to allocations by month, the yearly allocations entered will be split throughout the months, making it easier to fill in the monthly table.
+
+- Table 3 can be copied, printed or downloaded.
+- Figure 1 is now interactive, among other functionalities, it is now possible to hover the mouse pointer over the figure to check values, either one at the time or for all the gears at the same time.
+<br>
+<br>
 
 
-### **Notes:**  
-*** 
+### **Notes:**
+***
 
-#### The total catch available for the commercial gears is the ICES advice minus the expected recreational catch.  
+The total catch available for the commercial gears is the ICES advice minus the expected recreational catch.
 
 
-#### The simulation estimates the catch-at-age that will lead to the tonnage specified for each gear, based on an analysis of the selectivity of each gear. As such, it may not be possible to catch the exact tonnage entered, and resulting values may differ by a few tonnes. The outputs are values rounded to the nearest tonne. 
+The simulation estimates the catch-at-age that will lead to the tonnage specified for each gear, based on an analysis of the selectivity of each gear. As such, it may not be possible to catch the exact tonnage entered, and resulting values may differ by a few tonnes. The outputs are values rounded to the nearest tonne.
 
 <br>
 
-#### Discard proportions by gear (amount of the catch that is discarded) have been estimated using French and UK data from 2016 to 2018 (ICES, 2019). Current data are insufficient to accurately estimate discard selectivity by gear type, so the same discard selectivity as used in the ICES forecast is applied for all gears. Depending on the allocations by gear, the total amount of discards may vary from that forecasted in the ICES advice.  
+Discard proportions by gear (amount of the catch that is discarded) have been estimated using French and UK data from 2016 to 2018 (ICES, 2019). Current data are insufficient to accurately estimate discard selectivity by gear type, so the same discard selectivity as used in the ICES forecast is applied for all gears. Depending on the allocations by gear, the total amount of discards may vary from that forecasted in the ICES advice.
 
-#### The gear aggregation used in input catch allocation table are the ones specified in article 10 of EU, 2020.  
+The gear aggregation used in input catch allocation table are the ones specified in article 10 of EU, 2020.
 
-<br> 
-<br> 
+<br>
+<br>
 
 ### **References:**
-*** 
+***
 
-#### ICES. 2019. Working Group for the Celtic Seas Ecoregion (WGCSE). ICES Scientific Reports. 1:29. 1587 pp. http://doi.org/10.17895/ices.pub.4982
+ICES. 2019. Working Group for the Celtic Seas Ecoregion (WGCSE). ICES Scientific Reports. 1:29. 1587 pp. http://doi.org/10.17895/ices.pub.4982
 
-#### ICES.2020a. Working Group for the Celtic Seas Ecoregion (WGCSE). ICES Scientific Reports. 2:40. xx pp. http://doi.org/10.17895/ices.pub.5978
+ICES.2020a. Working Group for the Celtic Seas Ecoregion (WGCSE). ICES Scientific Reports. 2:40. xx pp. http://doi.org/10.17895/ices.pub.5978
 
-#### ICES.2020b. Brief analysis of the data received in response to the 2020 data call on landings by vessel and métier for sea bass (Dicentrarchus labrax) in divisions 4.b–c, 7.a, and 7.d–h. In Report of the ICES Advisory Committee, 2020. ICES Advice 2020, ts.2020.01. https://doi.org/10.17895/ices.advice.7511. The associated online sea bass catch allocation tool can be accessed at https://doi.org/10.17895/ices.data.7512.
+ICES.2020b. Brief analysis of the data received in response to the 2020 data call on landings by vessel and métier for sea bass (Dicentrarchus labrax) in divisions 4.b–c, 7.a, and 7.d–h. In Report of the ICES Advisory Committee, 2020. ICES Advice 2020, ts.2020.01. https://doi.org/10.17895/ices.advice.7511. The associated online sea bass catch allocation tool can be accessed at https://doi.org/10.17895/ices.data.7512.
 
-#### ICES.2020c. Sea  bass(Dicentrarchus  labrax)  in  divisions 4.b–c,7.a,  and 7.d–h (central  and southern  North  Sea,  Irish  Sea,  English  Channel,  Bristol  Channel,  and  Celtic  Sea. In Report  of  the  ICES  Advisory Committee, 2020. ICES Advice 2020, bss.27.4bc7ad-h. https://doi.org/10.17895/ices.advice.5916
+ICES.2020c. Sea  bass(Dicentrarchus  labrax)  in  divisions 4.b–c,7.a,  and 7.d–h (central  and southern  North  Sea,  Irish  Sea,  English  Channel,  Bristol  Channel,  and  Celtic  Sea. In Report  of  the  ICES  Advisory Committee, 2020. ICES Advice 2020, bss.27.4bc7ad-h. https://doi.org/10.17895/ices.advice.5916
 
-#### EU.2020. Council Regulation (EU) 2020/123 of 27 January 2020 fixing for 2020 the fishing opportunities for certain fish stocks and groups of fish stocks, applicable in Union waters and, for Union fishing vessels, in certain non-Union waters.ST/15319/2019/INIT. Official Journal of the European Union L25, 30.1.2020, p. 1–156 http://data.europa.eu/eli/reg/2020/123/oj
-
-
-<br> 
-<br> 
+EU.2020. Council Regulation (EU) 2020/123 of 27 January 2020 fixing for 2020 the fishing opportunities for certain fish stocks and groups of fish stocks, applicable in Union waters and, for Union fishing vessels, in certain non-Union waters.ST/15319/2019/INIT. Official Journal of the European Union L25, 30.1.2020, p. 1–156 http://data.europa.eu/eli/reg/2020/123/oj
 
 
-#### This tool has gone through extensive debugging and error checking. Nevertheless, if you encounter any inconsistency or bug please let us know by emailing us at accessions@ices.dk
-<br> 
-<br> 
+<br>
+<br>
+
+
+This tool has gone through extensive debugging and error checking. Nevertheless, if you encounter any inconsistency or bug please let us know by emailing us at accessions@ices.dk
+<br>
+<br>

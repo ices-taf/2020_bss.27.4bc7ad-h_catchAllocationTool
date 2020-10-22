@@ -171,6 +171,8 @@ ui <-
   ),
 
   # extra tags, css etc
+  tags$style(type = "text/css", "li {font-size: 17px;}"),
+  tags$style(type = "text/css", "p {font-size: 18px;}"),
   tags$style(type = "text/css", "body {padding-top: 70px;}"),
   tags$head(tags$style(HTML('#go{background-color:#dd4814}'))),
   theme = shinytheme("united"),
