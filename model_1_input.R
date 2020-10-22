@@ -18,7 +18,7 @@ setup_react <-
   list(
     setup =
       setup_input(
-        TimeStep = "12", AdviceType = "MSY",
+        TimeStep = "1", AdviceType = "MSY",
         Comm_v_Rec = "1", OpenSeason = "2", BagLimit = "2",
         age_data = age_data, source_data = other_data
       )
@@ -26,7 +26,7 @@ setup_react <-
 
 # enter some values for catches in tones by vessel
 setup_react$data <- setup_react$setup$data
-setup_react$data[] <- 0.05
+setup_react$data[1] <- 1000
 setup_react$data <- calc_total(setup_react$data)
 
 save(setup_react, file = "model/setup_react.RData")
