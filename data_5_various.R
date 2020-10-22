@@ -9,12 +9,10 @@ mkdir("data")
 # year
 load("data/globals.RData")
 
+age_data <- read.taf("data/age_data.csv")
+
 
 other_data <- list()
-
-# Fbar of recreational fishery in 2012
-other_data$Fbar_rec_2012 <- 0.0604
-
 
 
 ## ICES advice (http://ices.dk/sites/pub/Publication%20Reports/Advice/2019/2019/bss.27.4bc7ad-h.pdf)
@@ -33,12 +31,24 @@ other_data$ICESadvMSYlowRec <- 346
 # by gear (only C@A will be presented, no L@A or D@A)
 other_data$discard_prop <- read.taf("bootstrap/data/other/discard_proportions.csv")
 
-other_data$noVessels <- read.taf("bootstrap/data/other/Number_Vessels.csv")
+other_data$noVessels <- read.taf("bootstrap/data/Number_Vessels.csv")
 
 ## Recreational fisheries
 # F multipliers for bag limits and closed seasons
 other_data$RecFs <- read.taf("bootstrap/data/BagLimitFs.csv")
 
 other_data$AdviceScenarios <- read.taf("bootstrap/data/other/bss.27.4bc7ad-h 2019 Advice scenarios.csv")
+
+
+
+
+
+
+
+# Fbar of recreational fishery in 2012
+other_data$Fbar_rec_2012 <- mean(age_data$F_age_rec_2012[5:16])
+
+
+
 
 save(other_data, file = "data/other_data.RData")
