@@ -57,6 +57,16 @@ age_data <-
   right_join(age_data, by = "Age")
 
 
+# catch at age
+#catage <- t(assessmt$catage[assessmt$catage$Yr == 2018, paste(0:30)])
+
+
+
+
+
+
+
+
 # weights at age in other fleets
 # used were "other" or "French" == "Com D"
 age_data <-
@@ -244,6 +254,14 @@ natage[3] <- natage[3] * natage[1] / filter(assessmt$natage, Yr == 2018 & `Beg/M
 age_data$N_2020 <- natage
 age_data$N <- c(natage[1], natage * exp(-age_data$Z_age_2020))[-(nrow(age_data) + 1)]
 
+# maturity
+age_data$mat <-
+  c(
+    0.000, 0.000, 0.000, 0.000, 0.095, 0.300, 0.580, 0.797, 0.914, 0.964, 0.985, 0.993, 0.997,
+    0.998, 0.999, 0.999, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000,
+    1.000, 1.000, 1.000, 1.000, 1.000
+  )
+
 
 # process plus group
 age_data$stkwt[age_data$Age == 16] <- sum((age_data$N_2020 * age_data$stkwt)[age_data$Age >= 16]) / sum(age_data$N_2020[age_data$Age >= 16])
@@ -251,12 +269,6 @@ age_data$N[age_data$Age == 16] <- sum(age_data$N[age_data$Age >= 16])
 age_data$N_2020[age_data$Age == 16] <- sum(age_data$N_2020[age_data$Age >= 16])
 
 age_data <- filter(age_data, Age <= 16)
-
-as.data.frame(round(age_data))
-as.data.frame(round(age_data, 3))
-
-# maturity
-age_data$mat <- c(0, 0, 0, 0, 0.089, 0.291, 0.575, 0.798, 0.916, 0.966, 0.986, 0.994, 0.997, 0.999, 0.999, 1, 1)
 
 
 # Z at age from the ICES advice forecasts
@@ -276,5 +288,8 @@ age_data <-
     by = "Age"
   )
 
+# overwrite till its fixed
+warning("overwriting landings weights at age")
+age_data$weights_age <- read.taf(taf.data.path("checks", "forecast_inputs.csv"))$weights_age
 
 write.taf(age_data, dir = "data")
