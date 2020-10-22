@@ -196,6 +196,3 @@ server <- function(input, output) {
   output$hide_panel <- eventReactive(input$go, TRUE, ignoreInit = TRUE)
   outputOptions(output, "hide_panel", suspendWhenHidden = FALSE)
 }
-
-
-Sea bass catch allocation tool
