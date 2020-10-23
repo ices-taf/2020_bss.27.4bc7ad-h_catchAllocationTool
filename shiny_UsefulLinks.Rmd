@@ -23,6 +23,6 @@ output: html_document
 [European Commission sea bass webpage](https://ec.europa.eu/fisheries/cfp/fishing_rules/sea-bass_en)
 
 
-[Brief analysis of the data received in response to the 2020 data call on landings by vessel and métier for sea bass (Dicentrarchus labrax) in divisions 4.b–c, 7.a, and 7.d–h](https://community.ices.dk/Advice/Advice2020/TechnicalServices/Draft_advice/Sea%20bass%20tool_Brief%20analysis%20of%20data%20call%20data.docx)
+[Brief analysis of the data received in response to the 2020 data call on landings by vessel and métier for sea bass (Dicentrarchus labrax) in divisions 4.b–c, 7.a, and 7.d–h](http://www.ices.dk/sites/pub/Publica)
 
 <br>
