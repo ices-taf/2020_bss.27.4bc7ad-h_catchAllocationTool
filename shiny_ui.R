@@ -152,6 +152,11 @@ ui <-
               height = 60)),
 
   tabPanel(
+      "Introduction",
+      includeMarkdown("Introduction.Rmd")
+    ),
+    
+  tabPanel(
     "Instructions",
     includeMarkdown("Instructions.Rmd")
   ),

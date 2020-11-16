@@ -4,27 +4,6 @@ output: html_document
 ---
 
 
-## Introductory notes
-***
-
-
-The sea bass catch allocation tool was developed to be used **exclusively** for sea bass (*Dicentrarchus labrax*) in divisions 4.b–c, 7.a, and 7.d–h (central and southern North Sea, Irish Sea, English Channel, Bristol Channel, and Celtic Sea) in 2020.
-
-<br>
-
-The assumptions used in the tool are closely linked to the assessment of this stock (ICES,2020a) and any attempt to use it for other stocks will not produce sensible results.
-
-<br>
-
-The sea bass catch allocation tool was developed with the intent to aid managers and stakeholders to test multiple catch allocation schemes by gear and different regulations for recreational catches, using the ICES catch advice (ICES, 2020c) as a maximum.
-
-<br>
-
-Although this tool is designed to be in line with the assumptions used in the sea bass advice there are instances where it deviates from them. The tool can be used to allocate monthly options, while the assessment is run an annual time step. Also, depending on the gear options selected, the overall commercial catch- at-age may differ from that assumed in the ICES forecast.
-
-<br>
-<br>
-
 ## Instructions
 ***
 
@@ -53,7 +32,7 @@ On the top right is shown a plot of catch-at-age in thousands by gear. The black
 
 <br>
 
-Below the plot, a table is shown with the results of the simulation. Since the catch allocations are not allowed to exceed the ICES advice (ICES, 2020c), final catch allocations may be less than those initially entered. For monthly simulations, the initial catch allocations are taken each month until the advice value is reached. For subsequent months the catch is set to zero.
+Below the plot, a table is shown with the results of the simulation. Since the catch allocations are not allowed to exceed the ICES advice (ICES, 2020a), final catch allocations may be less than those initially entered. For monthly simulations, the initial catch allocations are taken each month until the advice value is reached. For subsequent months the catch is set to zero.
 
 <br>
 
@@ -98,11 +77,9 @@ The gear aggregation used in input catch allocation table are the ones specified
 
 ICES. 2019. Working Group for the Celtic Seas Ecoregion (WGCSE). ICES Scientific Reports. 1:29. 1587 pp. http://doi.org/10.17895/ices.pub.4982
 
-ICES.2020a. Working Group for the Celtic Seas Ecoregion (WGCSE). ICES Scientific Reports. 2:40. xx pp. http://doi.org/10.17895/ices.pub.5978
+ICES.2020a. Sea  bass(*Dicentrarchus  labrax*)  in  divisions 4.b–c,7.a,  and 7.d–h (central  and southern  North  Sea,  Irish  Sea,  English  Channel,  Bristol  Channel,  and  Celtic  Sea. In Report  of  the  ICES  Advisory Committee, 2020. ICES Advice 2020, bss.27.4bc7ad-h. https://doi.org/10.17895/ices.advice.5916
 
-ICES.2020b. Brief analysis of the data received in response to the 2020 data call on landings by vessel and métier for sea bass (Dicentrarchus labrax) in divisions 4.b–c, 7.a, and 7.d–h. In Report of the ICES Advisory Committee, 2020. ICES Advice 2020, ts.2020.01. https://doi.org/10.17895/ices.advice.7511. The associated online sea bass catch allocation tool can be accessed at https://doi.org/10.17895/ices.data.7512.
-
-ICES.2020c. Sea  bass(Dicentrarchus  labrax)  in  divisions 4.b–c,7.a,  and 7.d–h (central  and southern  North  Sea,  Irish  Sea,  English  Channel,  Bristol  Channel,  and  Celtic  Sea. In Report  of  the  ICES  Advisory Committee, 2020. ICES Advice 2020, bss.27.4bc7ad-h. https://doi.org/10.17895/ices.advice.5916
+ICES.2020b. Brief analysis of the data received in response to the 2020 data call on landings by vessel and métier for sea bass (*Dicentrarchus labrax*) in divisions 4.b–c, 7.a, and 7.d–h. In Report of the ICES Advisory Committee, 2020. ICES Advice 2020, ts.2020.01. https://doi.org/10.17895/ices.advice.7511. The associated online sea bass catch allocation tool can be accessed at https://doi.org/10.17895/ices.data.7512.
 
 EU.2020. Council Regulation (EU) 2020/123 of 27 January 2020 fixing for 2020 the fishing opportunities for certain fish stocks and groups of fish stocks, applicable in Union waters and, for Union fishing vessels, in certain non-Union waters.ST/15319/2019/INIT. Official Journal of the European Union L25, 30.1.2020, p. 1–156 http://data.europa.eu/eli/reg/2020/123/oj
 
