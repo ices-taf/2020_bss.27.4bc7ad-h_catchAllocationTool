@@ -33,7 +33,7 @@ cp("shiny_Instructions.Rmd", "shiny/Instructions.Rmd")
 cp("shiny_UsefulLinks.Rmd", "shiny/UsefulLinks.Rmd")
 
 # copy pdf
-cp("shiny_TechnicalService.pdf", "shiny/TechnicalService.pdf")
+cp("shiny_TechnicalService.pdf", "shiny/www/TechnicalService.pdf")
 
 # copy in server and ui scripts
 cp("shiny_ui.R", "shiny/ui.R")

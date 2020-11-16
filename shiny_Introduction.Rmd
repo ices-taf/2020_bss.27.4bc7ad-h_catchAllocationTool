@@ -10,7 +10,7 @@ output:
 ***
 
 
-This tool was developed as a [technical service](shiny/TechnicalService.pdf) to DGMARE in 2019 and uses the most recent available data on seabass (*Dicentrarchus labrax*) catches in divisions 4.b–c, 7.a, and 7.d–h (central and southern North Sea, Irish Sea, English Channel, Bristol Channel, and Celtic Sea).
+This tool was developed as a [technical service](TechnicalService.pdf) to DGMARE in 2019 and uses the most recent available data on seabass (*Dicentrarchus labrax*) catches in divisions 4.b–c, 7.a, and 7.d–h (central and southern North Sea, Irish Sea, English Channel, Bristol Channel, and Celtic Sea).
 
 <br>
 
