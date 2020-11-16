@@ -49,3 +49,6 @@ rsconnect/
 ~[$]*.xlsx
 
 debug.log
+
+^shiny_*.tex$
+^shiny_*.html$
