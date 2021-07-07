@@ -42,7 +42,7 @@ The final table shows the summary of the forecast, including the impact in the S
 <br>
 
 
-### **New features:**
+### **New features added in 2020:**
 
 -	Table added indicating the number of vessels by gear used in the tool to raise the catch allocations. A document (ICES, 2020b) with an analysis on how the vessels numbers were derived is available in the useful links tab.
 -	Improved input table functionality:
@@ -77,7 +77,7 @@ The gear aggregation used in input catch allocation table are the ones specified
 
 ICES. 2019. Working Group for the Celtic Seas Ecoregion (WGCSE). ICES Scientific Reports. 1:29. 1587 pp. http://doi.org/10.17895/ices.pub.4982
 
-ICES.2020a. Sea  bass(*Dicentrarchus  labrax*)  in  divisions 4.b–c,7.a,  and 7.d–h (central  and southern  North  Sea,  Irish  Sea,  English  Channel,  Bristol  Channel,  and  Celtic  Sea. In Report  of  the  ICES  Advisory Committee, 2020. ICES Advice 2020, bss.27.4bc7ad-h. https://doi.org/10.17895/ices.advice.5916
+ICES.2020a. Sea  bass(*Dicentrarchus  labrax*)  in  divisions 4.b–c,7.a,  and 7.d–h (central  and southern  North  Sea,  Irish  Sea,  English  Channel,  Bristol  Channel,  and  Celtic  Sea. In Report of the ICES Advisory Committee, 2021. ICES Advice 2021, bss.27.4bc7ad-h. https://doi.org/10.17895/ices.advice.7733
 
 ICES.2020b. Brief analysis of the data received in response to the 2020 data call on landings by vessel and métier for sea bass (*Dicentrarchus labrax*) in divisions 4.b–c, 7.a, and 7.d–h. In Report of the ICES Advisory Committee, 2020. ICES Advice 2020, ts.2020.01. https://doi.org/10.17895/ices.advice.7511. The associated online sea bass catch allocation tool can be accessed at https://doi.org/10.17895/ices.data.7512.
 

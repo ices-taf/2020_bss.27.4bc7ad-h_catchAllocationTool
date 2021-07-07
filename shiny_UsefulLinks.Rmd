@@ -8,10 +8,10 @@ output: html_document
 
 <br>
 
-[ICES advice on fishing opportunities for 2021](http://ices.dk/sites/pub/Publication%20Reports/Advice/2020/2020/bss.27.4bc7ad-h.pdf)
+[ICES advice on fishing opportunities for 2022](https://www.ices.dk/sites/pub/Publication%20Reports/Advice/2021/2021/bss.27.4bc7ad-h.pdf)
 
 
-[Report section for sea bass of the 2020 Working Group for the Celtic Seas Ecoregion (WGCSE) 2020](https://www.ices.dk/sites/pub/Publication%20Reports/Expert%20Group%20Report/Fisheries%20Resources%20Steering%20Group/2020/WGCSE/31_Section_29_Seabass_4bc7d_h_2020.pdf)
+[Report section for sea bass of the 2021 Working Group for the Celtic Seas Ecoregion (WGCSE) 2021](https://www.ices.dk/sites/pub/Publication%20Reports/Expert%20Group%20Report/Fisheries%20Resources%20Steering%20Group/2021/WGCSE/31_Section_29_Seabass_4bc7d_h_2021.pdf)
 
 
 [Stock annex](https://www.ices.dk/sites/pub/Publication%20Reports/Stock%20Annexes/2020/bss-47_SA.pdf)

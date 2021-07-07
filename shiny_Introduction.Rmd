@@ -14,7 +14,7 @@ This tool was developed as a [technical service](TechnicalService.pdf) to DGMARE
 
 <br>
 
-**The Seabass tool is not an ICES advice and cannot be applied as such**; the ICES advice on Seabass can be found here: [ICES, 2020a](http://ices.dk/sites/pub/Publication%20Reports/Advice/2020/2020/bss.27.4bc7ad-h.pdf)
+**The Seabass tool is not an ICES advice and cannot be applied as such**; the ICES advice on Seabass can be found here: [ICES, 2020a](https://www.ices.dk/sites/pub/Publication%20Reports/Advice/2021/2021/bss.27.4bc7ad-h.pdf)
 
 <br>
 
@@ -43,7 +43,6 @@ Although, this tool is designed to be in line with the basic assumptions used in
 
 ICES.2020a. Working Group for the Celtic Seas Ecoregion (WGCSE). ICES Scientific Reports. 2:40. xx pp. http://doi.org/10.17895/ices.pub.5978
 
-ICES.2020b. Sea  bass(*Dicentrarchus  labrax*)  in  divisions 4.b–c,7.a,  and 7.d–h (central  and southern  North  Sea,  Irish  Sea,  English  Channel,  Bristol  Channel,  and  Celtic  Sea. In Report  of  the  ICES  Advisory Committee, 2020. ICES Advice 2020, bss.27.4bc7ad-h. https://doi.org/10.17895/ices.advice.5916
-
+ICES.2020b. Sea  bass(*Dicentrarchus  labrax*)  in  divisions 4.b–c,7.a,  and 7.d–h (central  and southern  North  Sea,  Irish  Sea,  English  Channel,  Bristol  Channel,  and  Celtic  Sea. In Report of the ICES Advisory Committee, 2021. ICES Advice 2021, bss.27.4bc7ad-h. https://doi.org/10.17895/ices.advice.7733
 
 
